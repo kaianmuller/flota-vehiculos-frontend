@@ -20,18 +20,22 @@ export class MenuComponent implements OnInit {
           {
               label: 'Home',
               icon:'pi pi-home',
+              routerLink: '/'
           },
           {
             label: 'Autos',
-            icon:'fas fa-car'
+            icon:'fas fa-car',
+            routerLink: 'autos'
         },
         {
           label: 'Servicios',
-          icon:'pi pi-briefcase'
+          icon:'pi pi-briefcase',
+          routerLink: 'servicios'
       },
       {
         label: 'Usuarios',
-        icon:'pi pi-users'
+        icon:'pi pi-users',
+        routerLink: 'usuarios'
     },
         
       ];
