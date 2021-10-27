@@ -1,13 +1,42 @@
 
+
+
+
 .panel-out{
     position: relative;
     width: 400px;
-    height: 270px;
-    top:100px;
+    height: 500px;
+    top:50px;
     margin: auto;
     border-radius: 4px;
     border: solid 1px gray;
 }
+
+
+.logo{
+    position: relative;
+    margin: auto;
+    top: 50px;
+    width: 200px;
+    height: 100px;
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo img{
+    width: 50%;
+    height: 100%;
+}
+
+.logo label{
+    font-size: 20px;
+    color: darkslategray;
+    font-weight: bold;
+    display: inline;
+    margin-top: 20px;
+}
+
 
 .panel-in{
     display: flex;
@@ -16,6 +45,15 @@
     align-items: center;
 }
 
+
+#title-login{
+font-size: 25px;
+margin-right: auto;
+margin-left: 60px;
+margin-bottom: 5px;
+font-weight: bold;
+color: rgb(46, 45, 45);
+}
 
 
 .p-inputgroup{
@@ -43,13 +81,21 @@ button{
     height: 50px;
     margin: auto;
     margin-top: 10px;
+    font-weight: bold;
 }
 
-label{
+.register-button{
     margin:20px;
     color: blue;
+    font-weight: bold;
 }
 
-label:hover{
+.register-button:hover{
     cursor: pointer;
 }
+
+
+label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+

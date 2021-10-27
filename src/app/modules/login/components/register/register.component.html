@@ -1,12 +1,57 @@
 <div class="panel">
 
 
-    <span class="p-input-icon-right">
-        <i class="pi pi-spin pi-spinner"></i>
-        <input type="text" pInputText [pTooltip]="'Enter your username'">        
-    </span> 
+
+<form [formGroup]="formReg" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()" >
+
+    <div class="p-field">
+        <label>Nombre</label>
+        <div class="field-out">
+            <input id="nombre" formControlName="nombre" type="text" pInputText (keyup.enter)="focusField('login')" [pTooltip]="formErrors.nombre" [style]="markField('nombre')">     
+        </div>
+    </div>
  
 
+    <div class="p-field">
+        <label>Username</label>
+        <div class="field-out">
+        <span class="p-input-icon-right">
+            <i [class]="loadUserIcon?'pi pi-spin pi-spinner':''"></i>
+            <input id="login" formControlName="login" type="text" pInputText (keyup.enter)="focusField('contrasena')" [pTooltip]="formErrors.login" [style]="markField('login')">        
+        </span> 
+        </div>
+    </div>
+
+
+        <div class="p-field">
+            <label>Contraseña</label>
+            <div class="field-out">
+                <input id="contrasena" type="password" pInputText formControlName="contrasena" (keyup.enter)="focusField('rep_contrasena')" [pTooltip]="formErrors.contrasena" [style]="markField('contrasena')">      
+            </div>
+        </div>
+        <div class="p-field">
+            <label>Repetir Contraseña</label>
+            <div class="field-out">
+                <input id="rep_contrasena" type="password" pInputText formControlName="rep_contrasena" (keyup.enter)="focusField('tipo_usuario')" [pTooltip]="formErrors.rep_contrasena" [style]="markField('rep_contrasena')">     
+            </div>
+        </div>
+    
+
+    <div class="p-field">
+        <label>Tipo de usuario</label>
+        <div class="field-out">
+            <p-selectButton id="tipo_usuario" formControlName="tipo_usuario" [options]="tiposUsuario"  optionLabel="name" optionValue="value" [multiple]="false" (keyup.enter)="focusField('submit')"></p-selectButton>
+        </div>
+    </div>
+
+
+    <div class="p-field" class="panel-inferior">
+    <button id="vaciar" type="button" label="Vaciar" pButton (click)="resetForm()"></button>
+    <button id="submit" type="submit" label="Enviar" pButton></button>
+    </div>
+
+
+</form>
 
 
 

@@ -1,4 +1,46 @@
 .panel{
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+
 }
+
+.p-field{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+
+input{
+    width: 260px;
+}
+
+
+.panel-inferior{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#enviar{
+    margin-left: auto;
+}
+
+#vaciar{
+    margin-right: auto;
+    background-color: white;
+    color: black;
+}
+
+button{
+    margin-top: 10px;
+    width: 100px;
+    height: 50px; 
+}
+
+
+
+

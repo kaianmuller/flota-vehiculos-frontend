@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
@@ -13,34 +13,62 @@ export class MenuComponent implements OnInit {
 
   items: MenuItem[] = [];
 
-  constructor(private authServ:AuthService,router:Router){}
+  profile_items: MenuItem[] = [];
+
+  constructor(private authServ:AuthService){}
 
   ngOnInit() {
       this.items = [
           {
               label: 'Home',
-              icon:'pi pi-home',
-              routerLink: '/'
+              icon:'fas fa-home',
+              routerLink: '/home',
           },
           {
             label: 'Autos',
             icon:'fas fa-car',
-            routerLink: 'autos'
+            routerLink: 'autos',
         },
         {
           label: 'Servicios',
-          icon:'pi pi-briefcase',
-          routerLink: 'servicios'
+          icon:'fas fa-briefcase',
+          routerLink: 'servicios',
       },
       {
         label: 'Usuarios',
-        icon:'pi pi-users',
-        routerLink: 'usuarios'
-    },
-        
+        icon:'fas fa-users',
+        routerLink: 'usuarios',
+    },{
+      label: 'Agendamientos',
+      icon:'fas fa-calendar-alt',
+      routerLink: 'agendamientos'
+  }  
       ];
-  }
 
+
+
+      this.profile_items = [
+        {
+            label: 'Cuenta',
+            icon:'fas fa-key',
+            routerLink: 'cuenta'
+        },
+        {
+          label: 'Configuraciones',
+          icon:'fas fa-cog',
+          routerLink: 'configuraciones'
+      },
+        {
+          label: 'Desconectar',
+          icon:'fas fa-power-off',
+          command:()=>{this.salir()}
+      }
+    ];
+
+
+
+    
+  }
 
 
 

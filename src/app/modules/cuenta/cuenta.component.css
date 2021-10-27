@@ -1,0 +1,22 @@
+.page{
+    margin: 20px;
+}
+
+
+.title{
+    font-size: 25px;
+}
+
+
+.line{
+    width: 500px;
+    margin-left:0px;
+    margin-top: 20px;
+}
+
+
+
+label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+

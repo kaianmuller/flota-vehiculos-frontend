@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/shared/models/Login.model';
-import Utils from 'src/app/shared/Utils/Utils';
+import Utils from 'src/app/shared/utils/Utils';
+
+
 
 
 
@@ -24,15 +26,16 @@ export class AuthService {
   }
 
   storage(result:any){
-  localStorage.setItem('access_token',result.access_token);
-  this.verifyToken(result.access_token);
+  localStorage.setItem('token',result.token);
+  this.verifyToken(result.token);
   }
 
 async verifyToken(token:string){
   this.http.post(Utils.ip()+"/auth/check",{jwt:token}).subscribe(
     (result:any)=>{
-      localStorage.setItem('expire_at',result.exp);
-      this.router.navigate(['/']);
+      localStorage.setItem('login',result.login);
+      localStorage.setItem('expire',result.exp);
+      this.router.navigate(['/home']);
     }
     );
 }
@@ -40,17 +43,22 @@ async verifyToken(token:string){
 
 
   logout(){
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('expire_at');
+    localStorage.removeItem('token');
+    localStorage.removeItem('expire');
+    localStorage.removeItem('login');
     this.router.navigate(['/login']);
   }
 
   getToken(){
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('token');
   }
 
   getExpire(){
-    return localStorage.getItem('expire_at');
+    return localStorage.getItem('expire');
+  }
+
+  getLogin(){
+    return localStorage.getItem('login');
   }
 
 isLogged():boolean{

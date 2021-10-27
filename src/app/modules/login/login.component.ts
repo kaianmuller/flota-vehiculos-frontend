@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { Login } from 'src/app/shared/models/Login.model';
 
 @Component({
@@ -15,11 +16,13 @@ login:Login = new Login();
   
 dispReg:boolean = false;
 
-  constructor(private authServ:AuthService,private router:Router,private messageService: MessageService) { }
+
+  constructor(private readonly authServ:AuthService,private router:Router,private messageService: MessageService,private sysMsg:SystemMessagesService) { }
 
   ngOnInit(): void {
-    this.checkToken();
+    this.isLogged();
     this.focusUserInput();
+
   }
 
 getValue(event:any){
@@ -32,15 +35,18 @@ return event.target.value;
 
 
   showFailLoginMessage(error:any){
-    console.log(error.status);
-    if(error.status == 401)
-    this.messageService.add({severity:'error', summary:'No se pudo acceder al sistema.', detail:'Credenciales equivocadas!'});
+    this.login = new Login();
+    this.messageService.add(this.sysMsg.getSystemMessage(error.status));
   }
 
 
-async checkToken(){
+  resetFields(){
+    this.login = new Login();
+  }
+
+async isLogged(){
 if(this.authServ.isLogged())
-      this.router.navigate(['']);
+      this.router.navigate(['/']);
 }
 
 

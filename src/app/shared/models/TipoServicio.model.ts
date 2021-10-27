@@ -1,9 +1,8 @@
-import { Generic } from "./generic/Generic.model";
+import { ModelGeneric } from "../generic/models/ModelGeneric";
 
 
 
 
-export class TipoServicio  extends Generic{
-
-
+export class TipoServicio  extends ModelGeneric{
+   
 }

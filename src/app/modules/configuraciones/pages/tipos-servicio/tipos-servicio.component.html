@@ -1,0 +1,34 @@
+<div class="page">
+<form [formGroup]="formTS" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()">
+    <label class="title">Administrar Tipos de servicio</label>
+    <hr class="line">
+    <div *ngIf="edit==false">
+        <label>Nuevo</label>
+        <div>
+            <input id="new-input" formControlName="descripcion" type="text" pInputText placeholder="Nuevo Tipo" [ngStyle]="markField('descripcion')" [pTooltip]="formErrors.descripcion">
+        </div>
+        <button class="save-button" pButton icon="fas fa-save"></button>
+        <button class="cancel-button" pButton icon="far fa-window-close" (click)="edit=null;resetForm()"></button>
+    </div>
+    <div *ngIf="edit==true">
+        <label>Editar</label>
+        <div>
+            <input id="edit-input" formControlName="descripcion" type="text" pInputText placeholder="Editar Tipo" [ngStyle]="markField('descripcion')" [pTooltip]="formErrors.descripcion">
+        </div>
+        <button class="save-button" pButton icon="fas fa-save"></button>
+        <button class="cancel-button" pButton icon="far fa-window-close" (click)="edit=null;resetForm()"></button>
+    </div>
+    <div *ngIf="edit==null">
+        <button class="add-button" pButton icon="fas fa-plus" (click)="edit=false;resetValidate()"></button>
+        <div>
+            <select (change)="selectItem($event)" [ngStyle]="markField('descripcion')"  [pTooltip]="formErrors.descripcion">
+                <option value="" selected>Elegir...</option>
+                <option *ngFor="let i of itemsList" [value]="i.id">{{i.descripcion}}</option>
+            </select>
+            <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem();resetValidate()"></button>
+            <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem()"></button>
+        </div>
+    </div>
+</form>
+</div>
+

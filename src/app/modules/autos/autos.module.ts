@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AutosRoutingModule } from './autos-routing.module';
+
 import { AutosComponent } from './autos.component';
 
 
@@ -11,7 +11,6 @@ import { AutosComponent } from './autos.component';
   ],
   imports: [
     CommonModule,
-    AutosRoutingModule
   ]
 })
 export class AutosModule { }

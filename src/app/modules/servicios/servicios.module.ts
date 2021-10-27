@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ServiciosRoutingModule } from './servicios-routing.module';
 import { ServiciosComponent } from './servicios.component';
 
 
@@ -11,7 +10,6 @@ import { ServiciosComponent } from './servicios.component';
   ],
   imports: [
     CommonModule,
-    ServiciosRoutingModule
   ]
 })
 export class ServiciosModule { }

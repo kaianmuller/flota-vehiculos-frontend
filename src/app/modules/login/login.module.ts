@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './components/register/register.component';
 import {DialogModule} from 'primeng/dialog';
 import {TooltipModule} from 'primeng/tooltip';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import {TooltipModule} from 'primeng/tooltip';
     ToastModule,
     BrowserAnimationsModule,
     DialogModule,
-    TooltipModule
+    TooltipModule,
+    SelectButtonModule,
+    ReactiveFormsModule
+    
   ],
   providers:[MessageService]
 })
