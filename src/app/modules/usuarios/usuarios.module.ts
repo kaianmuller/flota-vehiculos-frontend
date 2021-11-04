@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 
 import { UsuariosComponent } from './usuarios.component';
-
+import {TableModule} from 'primeng/table';
+import {ButtonModule } from 'primeng/button';
+import {PaginatorModule} from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -11,6 +13,9 @@ import { UsuariosComponent } from './usuarios.component';
   ],
   imports: [
     CommonModule,
+    TableModule,
+    ButtonModule,
+    PaginatorModule
   ]
 })
 export class UsuariosModule { }

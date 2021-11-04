@@ -36,6 +36,12 @@ export class TiposServicioComponent implements OnInit {
       descripcion: new FormControl(this.itemTarget.descripcion,[Validators.required]),
     });
 
+
+
+    this.formTS.valueChanges.subscribe(()=>{
+      this.validate();
+    });
+
     }
     
     

@@ -1,1 +1,32 @@
-<p>usuarios works!</p>
+<div class="page">
+    <div class="title">
+        <label>Lista de usuarios</label>
+    </div>
+    <div class="table">
+        <p-table #table [value]="usuarios" [rows]="rows" [showCurrentPageReport]="true" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Fecha Alteracion</th>
+                <th>Fecha Creacion</th>
+                <th>Tipo</th>
+                <th>Opciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+            <tr>
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.descripcion}}</td>
+                <td>{{usuario.fecha_alteracion | date:'dd/MM/YY'}}</td>
+                <td>{{usuario.fecha_creacion | date:'dd/MM/YY'}}</td>
+                <td>{{usuario.tipo_usuario}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator #pag [rows]="10" [totalRecords]="120"></p-paginator>
+    </div>
+
+</div>

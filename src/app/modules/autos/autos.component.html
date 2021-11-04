@@ -1,1 +1,28 @@
-<p>autos works!</p>
+<div class="page">
+    <div class="title">
+        <label>Lista de autos</label>
+    </div>
+    <div class="table">
+        <p-table #table [value]="autos" [rows]="rows" [showCurrentPageReport]="true" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Descripcion</th>
+                <th>Fecha Alteracion</th>
+                <th>Fecha Creacion</th>
+                <th>Opciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-auto>
+            <tr>
+                <td>{{auto.id}}</td>
+                <td>{{auto.descripcion}}</td>
+                <td>{{auto.fecha_alteracion | date:'dd/MM/YY'}}</td>
+                <td>{{auto.fecha_creacion | date:'dd/MM/YY'}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator #pag [rows]="10" [totalRecords]="120"></p-paginator>
+    </div>
+
+</div>

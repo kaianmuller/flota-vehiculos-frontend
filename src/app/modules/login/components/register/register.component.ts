@@ -46,6 +46,9 @@ this.formReg = new FormGroup({
   tipo_usuario: new FormControl(this.getTiposUsuario()[0].value,[Validators.required])
 });
 
+this.formReg.valueChanges.subscribe(()=>{
+  this.validate();
+});
 
 }
 

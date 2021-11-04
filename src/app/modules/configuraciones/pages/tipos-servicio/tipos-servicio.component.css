@@ -37,7 +37,7 @@
 
 .add-button{
     background-color: rgb(0, 200, 0);
-    margin-left: 10px;
+    margin-right: 5px;
 }
 
 .save-button{
@@ -72,12 +72,12 @@ input{
 
 
 select{
-    width: 300px;
+    width: 350px;
     height: 45px;
     border: solid 1px gray;
     outline: none;
     border-radius: 3px;
-    font-size: 14px;
+    font-size: 16px;
     color:black;
     text-align: center;
 }

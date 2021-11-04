@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Params } from '@angular/router';
 import Utils from 'src/app/shared/utils/Utils';
 
 export class ServiceGenericService <E>{
@@ -6,8 +7,12 @@ export class ServiceGenericService <E>{
   constructor(private serviceName:string,private readonly _http:HttpClient) { }
 
 
-  async getAll() {
-    return await this._http.get<Array<E>>(Utils.ip()+"/"+this.serviceName).toPromise();
+  async getAll(params?:Params) {
+    if(params){
+        return await this._http.get<Array<E>>(Utils.ip()+"/"+this.serviceName,{params:params}).toPromise();
+    }else{
+        return await this._http.get<Array<E>>(Utils.ip()+"/"+this.serviceName).toPromise();   
+    }
 }
 
 async getOne(id:number){
