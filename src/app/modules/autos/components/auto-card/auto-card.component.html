@@ -1,0 +1,83 @@
+<div class="panel">
+    <form [formGroup]="formAuto" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()" >
+    <div class="panel-superior">
+    <div>
+        <div class="p-field">
+            <label>Chapa</label>
+            <div class="field-out">
+                <input id="chapa" formControlName="chapa" type="text" pInputText (keyup.enter)="focusField('kilometraje')" [pTooltip]="formErrors.chapa" tooltipEvent="focus" [style]="markField('chapa')">    
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label>Fabricante</label>
+            <div class="field-out">
+                <input id="fabricante" formControlName="fabricante" type="text" pInputText (keyup.enter)="focusField('ano_modelo')" [pTooltip]="formErrors.fabricante" tooltipEvent="focus" [style]="markField('fabricante')">    
+            </div>
+        </div>
+
+
+        <div class="p-field">
+            <label>Modelo</label>
+            <div class="field-out">
+                <input id="modelo" formControlName="modelo" type="text" pInputText (keyup.enter)="focusField('ano_fabricacion')" [pTooltip]="formErrors.modelo" tooltipEvent="focus" [style]="markField('modelo')">    
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label>Chassis</label>
+            <div class="field-out">
+                <input id="chassis" formControlName="chassis" type="text" pInputText (keyup.enter)="focusField('descripcion')" [pTooltip]="formErrors.chassis" tooltipEvent="focus" [style]="markField('chassis')">    
+            </div>
+        </div>
+    </div>  
+
+    <div>
+        <div class="p-field">
+            <label>Kilometraje</label>
+            <div class="field-out">
+                <input id="kilometraje" formControlName="kilometraje" type="text" pInputText (keyup.enter)="focusField('fabricante')" [pTooltip]="formErrors.kilometraje" tooltipEvent="focus" [style]="markField('kilometraje')">    
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label>Ano del modelo</label>
+            <div class="field-out">
+                <input id="ano_modelo" formControlName="ano_modelo" type="text" pInputText (keyup.enter)="focusField('modelo')" [pTooltip]="formErrors.ano_modelo" tooltipEvent="focus" [style]="markField('ano_modelo')">    
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label>Ano de fabricacion</label>
+            <div class="field-out">
+                <input id="ano_fabricacion" formControlName="ano_fabricacion" type="text" pInputText (keyup.enter)="focusField('chassis')" [pTooltip]="formErrors.ano_fabricacion" tooltipEvent="focus" [style]="markField('ano_fabricacion')">    
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="panel-medio">
+        <div class="p-field">
+            <label>Descripcion</label>
+            <div class="field-out">
+                <textarea id="descripcion" formControlName="descripcion" pInputTextarea  (keyup.enter)="focusField('disponibilidad')"></textarea>   
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label>Disponibilidad</label>
+            <div class="field-out">
+                <p-selectButton id="disponibilidad" formControlName="disponibilidad" [options]="disponibilidades"  optionLabel="name" optionValue="value" [multiple]="false" (keyup.enter)="focusField('disponibilidad')"></p-selectButton>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-field" class="panel-inferior">
+        <button id="vaciar" type="button" label="Vaciar" pButton (click)="resetForm()"></button>
+        <button id="submit" type="submit" label="Enviar" pButton></button>
+    </div>
+
+    </form>
+    </div>
+    

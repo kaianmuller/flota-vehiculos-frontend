@@ -7,6 +7,10 @@ export class ServiceGenericService <E>{
   constructor(private serviceName:string,private readonly _http:HttpClient) { }
 
 
+async getCount() {
+    return await this._http.get<number>(Utils.ip()+"/"+this.serviceName+'/count').toPromise();   
+}
+
   async getAll(params?:Params) {
     if(params){
         return await this._http.get<Array<E>>(Utils.ip()+"/"+this.serviceName,{params:params}).toPromise();
@@ -33,6 +37,7 @@ async editOne(element:E,id:number){
 async deleteOne(id:number){
     return await this._http.delete<E>(Utils.ip()+"/"+this.serviceName+'/'+id).toPromise();
 }
+
 
 
 }

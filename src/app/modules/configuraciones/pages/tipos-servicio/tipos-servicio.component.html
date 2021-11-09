@@ -23,7 +23,7 @@
             <button class="add-button" pButton icon="fas fa-plus" (click)="edit=false;resetValidate()"></button>
             <select (change)="selectItem($event)" [ngStyle]="markField('descripcion')"  [pTooltip]="formErrors.descripcion">
                 <option value="" selected>Elegir...</option>
-                <option *ngFor="let i of itemsList" [value]="i.id">{{i.descripcion}}</option>
+                <option *ngFor="let i of items" [value]="i.id">{{i.descripcion}}</option>
             </select>
             <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem();resetValidate()"></button>
             <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem()"></button>

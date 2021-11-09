@@ -11,7 +11,7 @@ import { TipoServicio } from 'src/app/shared/models/TipoServicio.model';
 })
 export class TiposServicioComponent implements OnInit {
 
-  itemsList:Array<TipoServicio> = new Array<TipoServicio>();
+  items:TipoServicio[] = new Array<TipoServicio>();
 
   itemTarget:TipoServicio = new TipoServicio();
 
@@ -94,13 +94,13 @@ export class TiposServicioComponent implements OnInit {
 
 
     getItems(){
-      this.tipServ.getAll().then((result)=>this.itemsList = result);
+      this.tipServ.getAll().then((result)=>this.items = result);
     }
 
 
     
     selectItem(event:any){
-      this.itemsList.map((item)=>{
+      this.items.map((item)=>{
         if(item.id==event.target.value){
           this.itemTarget = item;
         }

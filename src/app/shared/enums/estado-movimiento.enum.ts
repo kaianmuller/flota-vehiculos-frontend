@@ -1,4 +1,4 @@
 export enum EstadoMovimiento{
-    EN_PROCESO = 'EN_PROCESO',
-    FINALIZADO = 'FINALIZADO'
+    EN_PROCESO = 'EP',
+    FINALIZADO = 'F'
 }

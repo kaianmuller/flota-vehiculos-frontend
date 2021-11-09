@@ -1,9 +1,13 @@
 .panel{
-    width: 400px;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: left;
+}
+
+.panel-superior{
+    display: flex;
+    flex-direction: row;
 }
 
 .p-field{
@@ -11,6 +15,12 @@
     margin: 5px;
 }
 
+#descripcion{
+    width: 98%;
+    height: 80px;
+    font-size: small;
+    resize: none;
+}
 
 
 input{
@@ -39,7 +49,3 @@ button{
     width: 100px;
     height: 50px; 
 }
-
-
-
-

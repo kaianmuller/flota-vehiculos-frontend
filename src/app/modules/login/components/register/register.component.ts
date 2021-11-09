@@ -4,6 +4,7 @@ import { SystemMessagesService } from 'src/app/core/services/system-messages/sys
 import { UsuariosService } from 'src/app/core/services/usuarios/usuarios.service';
 import { TipoUsuario } from 'src/app/shared/enums/tipo-usuario.enum';
 import { Usuario } from 'src/app/shared/models/Usuario.model';
+import Utils from 'src/app/shared/utils/Utils';
 
 
 @Component({
@@ -30,7 +31,6 @@ formErrors:{[k: string]: string} = {};
    }
 
   ngOnInit(): void {
-    this.resetValidate();
     this.buildForm();
   }
 
@@ -46,9 +46,7 @@ this.formReg = new FormGroup({
   tipo_usuario: new FormControl(this.getTiposUsuario()[0].value,[Validators.required])
 });
 
-this.formReg.valueChanges.subscribe(()=>{
-  this.validate();
-});
+this.resetValidate();
 
 }
 
@@ -62,22 +60,22 @@ validate()
   }
     this.formErrors.rep_contrasena = this.validRep()?this.sysMsg.getFormMessages(this.formReg.get('rep_contrasena')?.errors):"La contrasena repetida no es igual a la original!";
 
+    this.focusFieldError();
 }
 
 
 
 getTiposUsuario(){
   
+let enumKeys = Object.keys(TipoUsuario);
+  
+let valores = [];
 
-let enumValues = Object.values(TipoUsuario);
-
-let tipos = [];
-
-  for(let tipo of enumValues){
-    tipos.push({name:tipo.toString(),value:tipo});
+  for(let key of enumKeys){
+    valores.push({name:key, value:Utils.getEnumValue(TipoUsuario,key)});
   }
 
-  return tipos;
+  return valores;
 }
 
 
@@ -86,21 +84,18 @@ let tipos = [];
 submit(event:Event){
   event.preventDefault();
 
-
-  const value = this.formReg.value;
-  delete value.rep_contrasena;
-  value.fecha_creacion = new Date();
-
-  let user:Usuario = new Usuario();
-  Object.assign(user,value);
-
-
-
   if(this.formReg.valid && this.validRep()){
-    console.log(user);
+
+    let user:Usuario = new Usuario();
+    Object.assign(user,this.formReg.value);
+    user.fecha_creacion = new Date();
+
+    console.log(this.formReg.value);
+
     this.userServ.createOne(user).then((result)=>{
-      this.resetForm();
+      this.buildForm();
     });
+
   }else{
     this.validate();
   }
@@ -134,16 +129,17 @@ validRep(){
 
 
 markField(name:string){
-
-  for(let key in this.formErrors){
-    if(key==name && this.formErrors[key]!=""){
-      return {border: 'solid 2px red'};
-    }
-  }
-  return {};
+return this.formErrors[name] != ''?{border: 'solid 2px red'}:{};
 }
 
-
+focusFieldError(){
+  for(let e in this.formErrors){
+    if(this.formErrors[e]!=''){
+      document.getElementById(e)?.focus();
+      break;
+    }
+  }
+}
 
 
 

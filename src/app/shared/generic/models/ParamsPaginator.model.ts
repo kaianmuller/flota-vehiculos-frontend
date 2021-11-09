@@ -1,4 +1,4 @@
-export class Params{
+export class ParamsPaginator{
 
     skip:string = '';
     take:string = '';

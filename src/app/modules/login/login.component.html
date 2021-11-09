@@ -1,7 +1,4 @@
 
-<p-dialog header="Registro" [(visible)]="dispReg" [modal]="true">
-    <app-register></app-register>
-</p-dialog>
 
 <p-toast position="top-right"></p-toast>
 
@@ -25,3 +22,8 @@
             <label class="register-button" (click)="dispReg = true" >Registrarse</label>
         </div>
 </div>
+
+
+<p-dialog header="Registro" [(visible)]="dispReg" [modal]="true">
+    <app-register *ngIf="dispReg"></app-register>
+</p-dialog>

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
-import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
@@ -20,7 +19,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    CardModule,
     ButtonModule,
     InputTextModule,
     ToastModule,

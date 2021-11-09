@@ -1,5 +1,5 @@
 export enum DisponibilidadAuto{
-    DISPONIBLE = 'DISPONIBLE',
-    OCUPADO = 'OCUPADO',
-    INDISPONIBLE = 'INDISPONIBLE'
+    DISPONIBLE = 'D',
+    OCUPADO = 'O',
+    INDISPONIBLE = 'I'
 }
