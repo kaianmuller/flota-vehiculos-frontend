@@ -3,7 +3,7 @@
         <label>Lista de autos</label>
     </div>
     <div class="panel-new">
-        <button class="new-button" pButton icon="fas fa-plus" (click)="edit=false;dispForm = true;resetTarget()"></button>
+        <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
     </div>
     <div class="table">
         <p-table #table [value]="items" [rows]="rows" [showCurrentPageReport]="true" responsiveLayout="scroll">
@@ -26,8 +26,8 @@
                 <td>{{item.chapa}}</td>
                 <td>{{item.fabricante}}</td>
                 <td>{{item.modelo}}</td>
-                <td>{{item.descripcion}}</td>
-                <td>{{item.kilometraje}}</td>
+                <td><small>{{item.descripcion}}</small></td>
+                <td>{{formatN.format(item.kilometraje) + ' KM'}}</td>
                 <td>{{getEnumKey(item.disponibilidad)}}</td>
                 <td>{{item.fecha_alteracion | date:'dd/MM/YY'}}</td>
                 <td>{{item.fecha_creacion | date:'dd/MM/YY'}}</td>
@@ -51,13 +51,13 @@
 <p-dialog header="Informacion adicional" [(visible)]="dispInfo" [modal]="true">
     <div class="panel-info">
             <label><b>Chassis:</b> {{itemTarget.chassis}}</label>
-            <label><b>Ano modelo:</b> {{itemTarget.ano_modelo}}</label>
-            <label><b>Ano fabricacion:</b> {{itemTarget.ano_modelo}}</label>
+            <label><b>Año del modelo:</b> {{itemTarget.ano_modelo}}</label>
+            <label><b>Año de fabricacion:</b> {{itemTarget.ano_fabricacion}}</label>
     </div>
 </p-dialog>
 
 
 
-<p-dialog [header]="edit?'Editar Auto':'Nuevo Auto'" [(visible)]="dispForm" [modal]="true">
+<p-dialog [header]="!isEmpty(itemTarget)?'Editar Auto':'Nuevo Auto'" [(visible)]="dispForm" [modal]="true">
     <app-auto-card *ngIf="dispForm" [autoTarget]="itemTarget" (sendAuto)="sendItem($event)"></app-auto-card>
 </p-dialog>

@@ -5,7 +5,10 @@
         <div class="p-field">
             <label>Chapa</label>
             <div class="field-out">
+                <span class="p-input-icon-right">
+                <i [class]="loadChapaIcon?'pi pi-spin pi-spinner':''"></i>
                 <input id="chapa" formControlName="chapa" type="text" pInputText (keyup.enter)="focusField('kilometraje')" [pTooltip]="formErrors.chapa" tooltipEvent="focus" [style]="markField('chapa')">    
+                </span>
             </div>
         </div>
 
@@ -36,19 +39,19 @@
         <div class="p-field">
             <label>Kilometraje</label>
             <div class="field-out">
-                <input id="kilometraje" formControlName="kilometraje" type="text" pInputText (keyup.enter)="focusField('fabricante')" [pTooltip]="formErrors.kilometraje" tooltipEvent="focus" [style]="markField('kilometraje')">    
+                <p-inputNumber id="kilometraje" suffix=" KM." formControlName="kilometraje" (keyup.enter)="focusField('fabricante')" [pTooltip]="formErrors.kilometraje" tooltipEvent="focus" [style]="markField('kilometraje')"></p-inputNumber>    
             </div>
         </div>
 
         <div class="p-field">
-            <label>Ano del modelo</label>
+            <label>Año del modelo</label>
             <div class="field-out">
                 <input id="ano_modelo" formControlName="ano_modelo" type="text" pInputText (keyup.enter)="focusField('modelo')" [pTooltip]="formErrors.ano_modelo" tooltipEvent="focus" [style]="markField('ano_modelo')">    
             </div>
         </div>
 
         <div class="p-field">
-            <label>Ano de fabricacion</label>
+            <label>Año de fabricacion</label>
             <div class="field-out">
                 <input id="ano_fabricacion" formControlName="ano_fabricacion" type="text" pInputText (keyup.enter)="focusField('chassis')" [pTooltip]="formErrors.ano_fabricacion" tooltipEvent="focus" [style]="markField('ano_fabricacion')">    
             </div>
@@ -61,7 +64,7 @@
         <div class="p-field">
             <label>Descripcion</label>
             <div class="field-out">
-                <textarea id="descripcion" formControlName="descripcion" pInputTextarea  (keyup.enter)="focusField('disponibilidad')"></textarea>   
+                <textarea id="descripcion" formControlName="descripcion"  pInputTextarea  (keyup.enter)="focusField('disponibilidad')"  [pTooltip]="formErrors.descripcion" tooltipEvent="focus" [style]="markField('descripcion')"></textarea>   
             </div>
         </div>
 

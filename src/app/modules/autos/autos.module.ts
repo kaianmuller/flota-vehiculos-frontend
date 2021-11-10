@@ -13,6 +13,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { SharedModule } from 'primeng/api';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     TooltipModule,
     SelectButtonModule,
     InputTextModule,
-    InputTextareaModule
-  ]
+    InputTextareaModule,
+    InputNumberModule,
+    SharedModule
+  ],
 })
 export class AutosModule { }

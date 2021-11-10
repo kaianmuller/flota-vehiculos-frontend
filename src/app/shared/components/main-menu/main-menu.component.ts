@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
-
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  selector: 'app-main-menu',
+  templateUrl: './main-menu.component.html',
+  styleUrls: ['./main-menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MainMenuComponent implements OnInit {
 
+  
   items: MenuItem[] = [];
 
   profile_items: MenuItem[] = [];
@@ -75,4 +74,5 @@ export class MenuComponent implements OnInit {
   salir(){
     this.authServ.logout();
   }
+
 }

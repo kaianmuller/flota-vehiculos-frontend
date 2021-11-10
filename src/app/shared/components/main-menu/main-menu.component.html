@@ -1,6 +1,4 @@
 <p-menubar [model]="items">
-    <ng-template pTemplate="end">
         <button id="profile" pButton icon="fas fa-user" (click)="menu.toggle($event)" ></button>
         <p-menu #menu [model]="profile_items" [popup]="true"></p-menu>  
-    </ng-template>
 </p-menubar>

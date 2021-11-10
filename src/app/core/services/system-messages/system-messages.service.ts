@@ -24,6 +24,7 @@ formMessages = Array<{[key:string]:any}>();
       {required:'- Este campo es requerido!'},
       {existe:'- El elemento ingresado ya existe en el sistema!'},
       {select:'- Debes seleccionar un elemento!'},
+      {maxlength:'- Excediste el numero maximo de caracteres permitido!'},
     ];
 
   }

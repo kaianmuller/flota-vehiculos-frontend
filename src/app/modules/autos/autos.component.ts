@@ -15,7 +15,6 @@ export class AutosComponent implements OnInit {
   items: Auto[] = [];
   itemTarget:Auto = new Auto();
 
-  edit:boolean = false;
 
     first = 0;
     rows = 5;
@@ -25,6 +24,8 @@ export class AutosComponent implements OnInit {
 
     dispForm: boolean = false;
     dispInfo:boolean = false;
+
+    formatN = new Intl.NumberFormat('es-ES');
 
     constructor(private autoServ:AutosService) {
      
@@ -63,13 +64,11 @@ export class AutosComponent implements OnInit {
     showInfo(item:Auto){
     this.itemTarget = item;
     this.dispInfo = true;
-    console.log(item);
     }
 
 
     editItem(item:Auto){
       this.itemTarget = item;
-      this.edit=true;
       this.dispForm=true;
     }
 
@@ -94,6 +93,11 @@ export class AutosComponent implements OnInit {
 
     resetTarget(){
       this.itemTarget = new Auto();
+    }
+
+
+    isEmpty(auto:Auto){
+      return Utils.isEmpty(auto);
     }
 
 

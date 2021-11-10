@@ -37,15 +37,15 @@ formErrors:{[k: string]: string} = {};
       id: new FormControl(this.autoTarget.id),
       fecha_creacion: new FormControl(this.autoTarget.fecha_creacion),
       fecha_alteracion: new FormControl(this.autoTarget.fecha_alteracion),
-      descripcion: new FormControl(this.autoTarget.descripcion),
-      chapa: new FormControl(this.autoTarget.chapa,[Validators.required]),
+      descripcion: new FormControl(this.autoTarget.descripcion,[Validators.maxLength(50)]),
+      chapa: new FormControl(this.autoTarget.chapa,[Validators.required],[this.exist.bind(this)]),
       chassis: new FormControl(this.autoTarget.chassis,[Validators.required]),
       fabricante: new FormControl(this.autoTarget.fabricante,[Validators.required]),
       modelo: new FormControl(this.autoTarget.modelo,[Validators.required]),
       kilometraje: new FormControl(this.autoTarget.kilometraje,[Validators.required]),
       ano_modelo: new FormControl(this.autoTarget.ano_modelo,[Validators.required]),
       ano_fabricacion: new FormControl(this.autoTarget.ano_fabricacion,[Validators.required]),
-      disponibilidad: new FormControl(this.getDisponibilidadAuto()[0].value,[Validators.required])
+      disponibilidad: new FormControl(!Utils.isEmpty(this.autoTarget)?this.autoTarget.disponibilidad:this.disponibilidades[0].value,[Validators.required])
     });
 
     this.resetValidate();
@@ -79,14 +79,13 @@ formErrors:{[k: string]: string} = {};
   
   
   
-  
   submit(event:Event){
     event.preventDefault();
 
     if(this.formAuto.valid){
   
       let auto:Auto = new Auto();
-      Object.assign(auto,this.formAuto.value);
+      Object.assign(auto,Utils.convertUpperCase(this.formAuto.value));
      
       console.log(auto);
 
@@ -113,12 +112,13 @@ formErrors:{[k: string]: string} = {};
   resetValidate(){
     this.formErrors = {
       chapa: '',
-      chassis: '',
-      fabricante: '',
-      modelo: '',
       kilometraje: '',
+      fabricante: '',
       ano_modelo: '',
+      modelo: '',
       ano_fabricacion: '',
+      chassis: '',
+      descripcion: ''
     };
   }
   
@@ -128,6 +128,8 @@ formErrors:{[k: string]: string} = {};
   return this.formErrors[name] != ''?{border: 'solid 2px red'}:{};
   }
   
+
+
   focusFieldError(){
     for(let e in this.formErrors){
       if(this.formErrors[e]!=''){
@@ -144,19 +146,19 @@ formErrors:{[k: string]: string} = {};
   }
   
   
- /* 
-  exist(control: AbstractControl) {
+  
+  async exist(control: AbstractControl) {
     this.loadChapaIcon = true;
-    return this.autoServ.existChapaByNumber(control.value).then((value) => {
+    return this.autoServ.existAutoByChapa(control.value.toUpperCase()).then((value) => {
       this.loadChapaIcon = false;
-      if(value){
+      if(value && Utils.isEmpty(this.autoTarget)){
         return {'existe':true};
       }else{
         return null;
       }
      });
   }
-  */
+  
 
 
 
