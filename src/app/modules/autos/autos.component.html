@@ -28,7 +28,7 @@
                 <td>{{item.modelo}}</td>
                 <td><small>{{item.descripcion}}</small></td>
                 <td>{{formatN.format(item.kilometraje) + ' KM'}}</td>
-                <td>{{getEnumKey(item.disponibilidad)}}</td>
+                <td>{{item.disponibilidad}}</td>
                 <td>{{item.fecha_alteracion | date:'dd/MM/YY'}}</td>
                 <td>{{item.fecha_creacion | date:'dd/MM/YY'}}</td>
                 <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>

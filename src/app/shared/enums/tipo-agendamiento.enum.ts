@@ -1,4 +1,4 @@
 export enum TipoAgendamiento{
-    FIJO = 'F',
-    PERIODICO = 'P'
+    FIJO = 'FIJO',
+    PERIODICO = 'PERIODICO'
 }

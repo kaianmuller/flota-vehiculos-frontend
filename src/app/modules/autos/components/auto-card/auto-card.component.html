@@ -46,14 +46,14 @@
         <div class="p-field">
             <label>Año del modelo</label>
             <div class="field-out">
-                <input id="ano_modelo" formControlName="ano_modelo" type="text" pInputText (keyup.enter)="focusField('modelo')" [pTooltip]="formErrors.ano_modelo" tooltipEvent="focus" [style]="markField('ano_modelo')">    
+                <p-inputNumber id="ano_modelo" formControlName="ano_modelo" type="text" (keyup.enter)="focusField('modelo')" [pTooltip]="formErrors.ano_modelo" tooltipEvent="focus" [style]="markField('ano_modelo')"></p-inputNumber>    
             </div>
         </div>
 
         <div class="p-field">
             <label>Año de fabricacion</label>
             <div class="field-out">
-                <input id="ano_fabricacion" formControlName="ano_fabricacion" type="text" pInputText (keyup.enter)="focusField('chassis')" [pTooltip]="formErrors.ano_fabricacion" tooltipEvent="focus" [style]="markField('ano_fabricacion')">    
+                <p-inputNumber id="ano_fabricacion" formControlName="ano_fabricacion" type="text" (keyup.enter)="focusField('chassis')" [pTooltip]="formErrors.ano_fabricacion" tooltipEvent="focus" [style]="markField('ano_fabricacion')"></p-inputNumber>    
             </div>
         </div>
     </div>

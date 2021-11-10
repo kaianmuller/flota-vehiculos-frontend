@@ -72,7 +72,7 @@ let enumKeys = Object.keys(TipoUsuario);
 let valores = [];
 
   for(let key of enumKeys){
-    valores.push({name:key, value:Utils.getEnumValue(TipoUsuario,key)});
+    valores.push({name:key, value:key});
   }
 
   return valores;

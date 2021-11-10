@@ -71,7 +71,7 @@ formErrors:{[k: string]: string} = {};
     let valores = [];
     
       for(let key of enumKeys){
-        valores.push({name:key, value:Utils.getEnumValue(DisponibilidadAuto,key)});
+        valores.push({name:key, value:key});
       }
     
       return valores;

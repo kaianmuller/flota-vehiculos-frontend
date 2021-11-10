@@ -52,14 +52,6 @@ export class AutosComponent implements OnInit {
   }
 
 
-    getEnumKey(value:any){
-     return Utils.getEnumKey(DisponibilidadAuto,value);
-    }
-
-
-    getEnumValue(name:string){
-      return Utils.getEnumValue(DisponibilidadAuto,name);
-    }
 
     showInfo(item:Auto){
     this.itemTarget = item;
