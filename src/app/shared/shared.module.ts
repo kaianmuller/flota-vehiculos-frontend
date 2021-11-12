@@ -6,7 +6,10 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
-
+import { InputTextModule } from 'primeng/inputtext';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {CalendarModule} from 'primeng/calendar';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -19,10 +22,16 @@ import { ButtonModule } from 'primeng/button';
     BrowserModule,
     MenuModule,
     MenubarModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule,
+    MenuModule,
+    OverlayPanelModule,
+    CalendarModule,
+    TooltipModule
   ],
   exports:[
-    MainMenuComponent
+    MainMenuComponent,
+    SearchFilterComponent
   ]
 })
 export class SharedModule { }

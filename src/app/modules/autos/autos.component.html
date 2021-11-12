@@ -2,8 +2,11 @@
     <div class="title">
         <label>Lista de autos</label>
     </div>
-    <div class="panel-new">
+    <div class="panel-middle">
         <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
+        <div class="search">
+            <app-search-filter [items]="searchConfig" (query)="setQueryItems($event)" (pagReload)="reloadPaginator()"></app-search-filter>
+        </div>
     </div>
     <div class="table">
         <p-table #table [value]="items" [rows]="rows" [showCurrentPageReport]="true" responsiveLayout="scroll">
@@ -43,7 +46,7 @@
     </p-table>
     </div>
     <div class="paginator">
-        <p-paginator #pag [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
+        <p-paginator #pag [rows]="rows" [totalRecords]="totalRecords" [first]="first" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 
 </div>

@@ -46,14 +46,14 @@
         <div class="p-field">
             <label>Año del modelo</label>
             <div class="field-out">
-                <p-inputNumber id="ano_modelo" formControlName="ano_modelo" type="text" (keyup.enter)="focusField('modelo')" [pTooltip]="formErrors.ano_modelo" tooltipEvent="focus" [style]="markField('ano_modelo')"></p-inputNumber>    
+                <p-inputNumber id="ano_modelo" formControlName="ano_modelo" (keyup.enter)="focusField('modelo')" [pTooltip]="formErrors.ano_modelo" tooltipEvent="focus" [style]="markField('ano_modelo')"></p-inputNumber>    
             </div>
         </div>
 
         <div class="p-field">
             <label>Año de fabricacion</label>
             <div class="field-out">
-                <p-inputNumber id="ano_fabricacion" formControlName="ano_fabricacion" type="text" (keyup.enter)="focusField('chassis')" [pTooltip]="formErrors.ano_fabricacion" tooltipEvent="focus" [style]="markField('ano_fabricacion')"></p-inputNumber>    
+                <p-inputNumber id="ano_fabricacion" formControlName="ano_fabricacion" (keyup.enter)="focusField('chassis')" [pTooltip]="formErrors.ano_fabricacion" tooltipEvent="focus" [style]="markField('ano_fabricacion')"></p-inputNumber>    
             </div>
         </div>
     </div>
@@ -77,8 +77,8 @@
     </div>
     
     <div class="p-field" class="panel-inferior">
-        <button id="vaciar" type="button" label="Vaciar" pButton (click)="resetForm()"></button>
-        <button id="submit" type="submit" label="Enviar" pButton></button>
+        <button id="vaciar" type="button" label="Vaciar" icon="fas fa-eraser" pButton (click)="resetForm()"></button>
+        <button id="submit" type="submit" label="Enviar" icon="fas fa-save" pButton></button>
     </div>
 
     </form>

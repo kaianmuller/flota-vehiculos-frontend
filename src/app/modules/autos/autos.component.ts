@@ -27,6 +27,23 @@ export class AutosComponent implements OnInit {
 
     formatN = new Intl.NumberFormat('es-ES');
 
+
+    searchConfig:{[key:string]:any} = {
+      disponibilidad:DisponibilidadAuto,
+      chapa: 'string',
+      kilometraje: 'number',
+      fabricante: 'string',
+      ano_modelo: 'number',
+      modelo: 'string',
+      ano_fabricacion: 'number',
+      chassis: 'string',
+      descripcion: 'string',
+      fecha_alteracion:'date',
+      fecha_creacion: 'date',
+    };
+
+    queryItems:{[key:string]:any} = {};
+
     constructor(private autoServ:AutosService) {
      
     }
@@ -42,7 +59,11 @@ export class AutosComponent implements OnInit {
 
 
     getItems(){
-      this.autoServ.getAll({skip:this.first,take:this.rows}).then((result)=>this.items = result);  
+      if(this.queryItems){
+        this.autoServ.getAll({skip:this.first,take:this.rows,search:JSON.stringify(this.queryItems)}).then((result)=>{this.items = result;console.log(result)});
+      }else{
+        this.autoServ.getAll({skip:this.first,take:this.rows}).then((result)=>this.items = result);
+      } 
     }
 
     paginate(event:any) {
@@ -91,6 +112,20 @@ export class AutosComponent implements OnInit {
     isEmpty(auto:Auto){
       return Utils.isEmpty(auto);
     }
+
+
+    setQueryItems(query:any){
+      this.queryItems = query;
+      this.getItems();
+    }
+
+
+    reloadPaginator(){
+      this.first = 0;
+      this.getItems();
+    }
+
+
 
 
 }

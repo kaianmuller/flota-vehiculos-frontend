@@ -10,7 +10,7 @@ export default class Utils{
 
     static convertUpperCase(obj:any){
       for(let key in obj){
-        if(typeof obj[key] == 'string' && key != 'descripcion' && key != 'login' && key != 'contrasena'){
+        if(typeof obj[key] == 'string' && key != 'login' && key != 'contrasena'){
           obj[key] = obj[key].toUpperCase();
         }
       }

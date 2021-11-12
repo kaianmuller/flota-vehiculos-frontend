@@ -1,0 +1,124 @@
+.page{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+#search-button{
+    width: 55px;
+    margin-left: 5px;
+}
+
+#search-input{
+    width: 250px;
+}
+
+
+#filter{
+width: 33px;
+height: 33px;
+margin-top: auto;
+margin-bottom: auto;
+margin-right: 5px;
+background-color: white;
+color: gray;
+border: 1px solid lightgray;
+}
+
+.panel div{
+    margin-left: auto;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+.panel-title label{
+    font-size: 22px;
+}
+
+.panel-title button{
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    background-color: white;
+    color: black;
+}
+
+.panel-field{
+    margin-top:10px;
+}
+
+.panel-field label{
+    margin-bottom: 5px;
+}
+
+
+.small-number{
+    width: 80px;
+    height: 30px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    font-size: 14x;
+    text-align: center;
+    padding: 2px;
+    margin-left: 5px;
+    color:black;
+}
+
+.small-date{
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.small-date label{
+    margin-right: auto;
+    margin-left: 2px;
+    font-size: 13px;
+}
+
+.small-date input{
+    width: 130px;
+    height: 30px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    font-size: 10x;
+    text-align: center;
+    margin-left: 5px;
+    color:black;
+}
+
+
+#apply-button{
+    width: 100px;
+    height: 35px;
+    margin-top: 10px;
+    margin-left: auto;
+    font-size: 15px;
+}
+
+select{
+    width: 165px;
+    height: 30px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    font-size: 10x;
+    text-align: center;
+    padding: 2px;
+    margin-left: 5px;
+    color:black;
+}
+
+
+
+
+i:hover{
+cursor: pointer; 
+}
+
+

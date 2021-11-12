@@ -1,1 +1,54 @@
-<p>search-filter works!</p>
+<div class="page">
+    <button id="filter" pButton icon="fas fa-filter" (click)="op.toggle($event)" pTooltip="Filtros" [style]="activeFiltersStyle()"></button>
+    <div class="p-field">
+        <div class="field-out">
+            <span class="p-input-icon-right">
+            <i  [class]="inputSearchText?'fas fa-times':''" (click)="inputSearchText = '';setQuerySearch();sendQuery()"></i>
+            <input id="search-input" type="text" [value]="inputSearchText" pInputText (keyup.enter)="setInputSearchText($event);sendQuery()" (keyup)="setInputSearchText($event)">    
+            </span>
+        </div>
+    </div>
+    <button id="search-button" pButton icon="fas fa-search" pTooltip="Buscar" (click)="sendQuery()"></button>
+    <p-overlayPanel #op>
+        <ng-template pTemplate>
+            <div class="panel">
+                <div class="panel-title">
+                    <label>Filtros</label>
+                    <button pButton icon="fas fa-eraser" pTooltip="Vaciar filtros" (click)="resetFilters()"></button>
+                </div>
+                <div *ngFor="let e of enums">
+                    <div class="panel-field" #enum>
+                        <label>{{firstUpperCase(e.key)}}: </label>
+                        <select (change)="setQueryEnum($event,e.key)">
+                            <option value="">select</option>
+                            <option *ngFor="let k of e.entries.keys;index as i" [value]="e.entries.values[i]" [selected]="e.entries.values[i] == queryFilter[e.key].value">{{e.entries.keys[i]}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngFor="let n of numbers">
+                    <div class="panel-field">
+                        <label>{{firstUpperCase(n.key)}}: </label>
+                        <input class="small-number" type="number" [value]="queryFilter[n.key].min" placeholder="min" (blur)="setQueryNumberMin($event,n.key)">
+                        <input class="small-number" type="number" [value]="queryFilter[n.key].max" placeholder="max" (blur)="setQueryNumberMax($event,n.key)">
+                    </div>
+                </div>
+                <div *ngFor="let d of dates">
+                    <div class="panel-field">
+                        <label>{{firstUpperCase(d.key)}}: </label>
+                        <div class="small-date">
+                            <label>Desde:</label>
+                            <input type="date" [value]="queryFilter[d.key].from" (blur)="setQueryDateFrom($event,d.key)">
+                        </div>
+                        <div class="small-date">
+                            <label>Hasta:</label>
+                            <input type="date" [value]="queryFilter[d.key].to" (blur)="setQueryDateTo($event,d.key)">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button id="apply-button" pButton label="Aplicar" icon="fas fa-check" pTooltip="Aplicar filtros" (click)="sendQuery();op.hide()"></button>
+                </div>
+            </div>
+        </ng-template>
+    </p-overlayPanel>
+</div>

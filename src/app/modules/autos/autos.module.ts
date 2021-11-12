@@ -14,7 +14,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputNumberModule} from 'primeng/inputnumber';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({

@@ -19,12 +19,19 @@
     }
 
 
-    .panel-new{
+    .panel-middle{
         margin: 5px;
+        display: flex;
+        flex-direction: row;
     }
 
     .new-button{
         width: 60px !important;
+    }
+
+    .search{
+        margin-left: auto;
+        margin-right: 10px;
     }
 
     .table{
