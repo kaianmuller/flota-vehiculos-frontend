@@ -2,31 +2,51 @@
     <div class="title">
         <label>Lista de usuarios</label>
     </div>
+    <div class="panel-middle">
+        <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
+        <div class="search">
+            <app-search-filter [items]="searchConfig" (query)="setQueryItems($event)"></app-search-filter>
+        </div>
+    </div>
     <div class="table">
-        <p-table #table [value]="usuarios" [rows]="rows" [showCurrentPageReport]="true" responsiveLayout="scroll">
+        <p-table #table [value]="items" [rows]="rows" [showCurrentPageReport]="true" responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>
-                <th>Id</th>
+                <th>Username</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Fecha Alteracion</th>
                 <th>Fecha Creacion</th>
                 <th>Tipo</th>
-                <th>Opciones</th>
+                <th><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-usuario>
+        <ng-template pTemplate="body" let-item>
             <tr>
-                <td>{{usuario.id}}</td>
-                <td>{{usuario.nombre}}</td>
-                <td>{{usuario.descripcion}}</td>
-                <td>{{usuario.fecha_alteracion | date:'dd/MM/YY'}}</td>
-                <td>{{usuario.fecha_creacion | date:'dd/MM/YY'}}</td>
-                <td>{{usuario.tipo_usuario}}</td>
+                <td>{{item.login}}</td>
+                <td>{{item.nombre}}</td>
+                <td><p>{{item.descripcion}}</p></td>
+                <td>{{item.fecha_alteracion | date:'dd/MM/YY'}}</td>
+                <td>{{item.fecha_creacion | date:'dd/MM/YY'}}</td>
+                <td>{{item.tipo_usuario}}</td>
+                <td>
+                <div class="opciones">
+                    <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem(item)" ></button>
+                    <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem(item.id)"></button>
+                </div>
+                </td>
             </tr>
         </ng-template>
     </p-table>
-    <p-paginator #pag [rows]="10" [totalRecords]="120"></p-paginator>
+    </div>
+    <div class="paginator">
+        <p-paginator #pag [rows]="rows" [totalRecords]="totalRecords" [first]="first" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 
 </div>
+
+
+
+<p-dialog [header]="!isEmpty(itemTarget)?'Editar Usuario':'Nuevo Usuario'" [(visible)]="dispForm" [modal]="true">
+    <app-usuario-card *ngIf="dispForm" [usuarioTarget]="itemTarget" (sendUsuario)="sendItem($event)"></app-usuario-card>
+</p-dialog>

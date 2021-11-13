@@ -1,0 +1,51 @@
+.panel{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.panel-superior{
+    display: flex;
+    flex-direction: row;
+}
+
+.p-field{
+    width: 100%;
+    margin: 5px;
+}
+
+#descripcion{
+    width: 98%;
+    height: 50px;
+    font-size: small;
+    resize: none;
+}
+
+
+input{
+    width: 260px;
+}
+
+
+.panel-inferior{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#enviar{
+    margin-left: auto;
+}
+
+#vaciar{
+    margin-right: auto;
+    background-color: white;
+    color: black;
+}
+
+button{
+    margin-top: 10px;
+    width: 100px;
+    height: 50px; 
+}

@@ -1,0 +1,45 @@
+<div class="panel">
+    <form [formGroup]="formUser" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()" >
+    
+        <div class="p-field">
+            <label>Nombre</label>
+            <div class="field-out">
+                <input id="nombre" formControlName="nombre" type="text" pInputText (keyup.enter)="focusField('login')" [pTooltip]="formErrors.nombre" tooltipEvent="focus" [style]="markField('nombre')">    
+            </div>
+        </div>
+     
+    
+        <div class="p-field">
+            <label>Username</label>
+            <div class="field-out">
+            <span class="p-input-icon-right">
+                <i [class]="loadUserIcon?'pi pi-spin pi-spinner':''"></i>
+                <input id="login" formControlName="login" type="text" pInputText (keyup.enter)="focusField('contrasena')" [pTooltip]="formErrors.login" tooltipEvent="focus" [style]="markField('login')">        
+            </span> 
+            </div>
+        </div>
+
+
+        <div class="p-field">
+                <label>Descripcion</label>
+                <div class="field-out">
+                    <textarea id="descripcion" formControlName="descripcion"  pInputTextarea  (keyup.enter)="focusField('disponibilidad')"  [pTooltip]="formErrors.descripcion" tooltipEvent="focus" [style]="markField('descripcion')"></textarea>   
+                </div>
+        </div>
+        
+    
+        <div class="p-field">
+            <label>Tipo de usuario</label>
+            <div class="field-out">
+                <p-selectButton id="tipo_usuario" formControlName="tipo_usuario" [options]="tiposUsuario"  optionLabel="name" optionValue="value" [multiple]="false" (keyup.enter)="focusField('submit')"></p-selectButton>
+            </div>
+        </div>
+    
+    
+        <div class="p-field" class="panel-inferior">
+        <button *ngIf="isEmpty()" id="vaciar" type="button" label="Vaciar" pButton (click)="resetForm()"></button>
+        <button id="enviar" type="submit" label="Enviar" icon="fas fa-save" pButton></button>
+        </div>
+    
+    </form>
+    </div>

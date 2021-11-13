@@ -37,7 +37,7 @@ formErrors:{[k: string]: string} = {};
       id: new FormControl(this.autoTarget.id),
       fecha_creacion: new FormControl(this.autoTarget.fecha_creacion),
       fecha_alteracion: new FormControl(this.autoTarget.fecha_alteracion),
-      descripcion: new FormControl(this.autoTarget.descripcion,[Validators.maxLength(50)]),
+      descripcion: new FormControl(this.autoTarget.descripcion,[Validators.maxLength(150)]),
       chapa: new FormControl(this.autoTarget.chapa,[Validators.required],[this.exist.bind(this)]),
       chassis: new FormControl(this.autoTarget.chassis,[Validators.required]),
       fabricante: new FormControl(this.autoTarget.fabricante,[Validators.required]),
@@ -145,6 +145,10 @@ formErrors:{[k: string]: string} = {};
   document.getElementById(field)?.focus();
   }
   
+
+  isEmpty(){
+    return Utils.isEmpty(this.autoTarget);
+  }
   
   
   async exist(control: AbstractControl) {

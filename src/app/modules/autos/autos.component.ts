@@ -101,7 +101,7 @@ export class AutosComponent implements OnInit {
     }
 
     deleteItem(id:number){
-      this.autoServ.deleteOne(id).then(result=>{console.log("Auto Deletado!");this.getItems()});
+      this.autoServ.deleteOne(id).then(result=>{console.log("item Deletado!");this.getItems()});
     }
 
     resetTarget(){

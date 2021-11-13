@@ -43,7 +43,7 @@ this.formReg = new FormGroup({
   login: new FormControl('',[Validators.required],[this.exist.bind(this)]),
   contrasena: new FormControl('',[Validators.required]),
   rep_contrasena: new FormControl('',[Validators.required]),
-  tipo_usuario: new FormControl(this.getTiposUsuario()[0].value,[Validators.required])
+  tipo_usuario: new FormControl(this.tiposUsuario[0].value,[Validators.required])
 });
 
 this.resetValidate();
