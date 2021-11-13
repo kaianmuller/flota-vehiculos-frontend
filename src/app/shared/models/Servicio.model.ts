@@ -1,4 +1,4 @@
-import { EstadoMovimiento } from "../enums/estado-movimiento.enum";
+import { EstadoServicio } from "../enums/estado-servicio.enum";
 import { ModelGeneric } from "../generic/models/ModelGeneric";
 
 
@@ -9,7 +9,7 @@ export class Servicio  extends ModelGeneric{
     km_inicial!:number;
     km_final!:number;
     valor_servicio!:number;
-    estado!:EstadoMovimiento;
+    estado!:EstadoServicio;
 
 
 }
