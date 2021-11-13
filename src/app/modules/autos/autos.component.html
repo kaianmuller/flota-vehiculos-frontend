@@ -5,7 +5,7 @@
     <div class="panel-middle">
         <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
         <div class="search">
-            <app-search-filter [items]="searchConfig" (query)="setQueryItems($event)" (pagReload)="reloadPaginator()"></app-search-filter>
+            <app-search-filter [items]="searchConfig" (query)="setQueryItems($event)"></app-search-filter>
         </div>
     </div>
     <div class="table">

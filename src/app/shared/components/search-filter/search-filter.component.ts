@@ -9,7 +9,6 @@ export class SearchFilterComponent implements OnInit {
 
 @Input() items!:any;
 @Output() query:EventEmitter<{}> = new EventEmitter<{}>();
-@Output() pagReload:EventEmitter<void> = new EventEmitter<void>();
 
 numbers:any = []
 strings:any = [];
@@ -23,6 +22,9 @@ querySearch:{[key:string]:any} = {};
 queryFilter:{[key:string]:any} = {};
 
 queryFinal:{[key:string]:any} = {};
+
+
+activeIcon:boolean = false;
 
   constructor() { }
 
@@ -82,6 +84,7 @@ for(let d of this.dates){
   setInputSearchText(event:any){
     this.inputSearchText = event.target.value;
     this.setQuerySearch();
+    this.inputSearchText?true:this.sendQuery();
   }
 
 
@@ -99,11 +102,11 @@ for(let d of this.dates){
 
 
   setQueryNumberMin(event:any,key:string){
-    this.queryFilter[key].min = event.target.value == ''? null : event.target.value;
+    this.queryFilter[key].min = event.target.value == '' || event.target.value < 0? null : event.target.value;
   }
 
   setQueryNumberMax(event:any,key:string){
-    this.queryFilter[key].max = event.target.value == ''? null : event.target.value;
+    this.queryFilter[key].max = event.target.value == '' || event.target.value < 0? null : event.target.value;
   }
 
 
@@ -121,7 +124,7 @@ setQueryDateTo(event:any,key:string){
     Object.assign(this.queryFinal,this.queryFilter);
     Object.assign(this.queryFinal,this.querySearch);
     this.query.emit(this.queryFinal);
-    this.pagReload.emit();
+    this.activeIcon = true;
   }
 
 
@@ -129,6 +132,7 @@ setQueryDateTo(event:any,key:string){
   resetFilters(){
     this.createInitialValuesFilter();
     this.sendQuery();
+    this.activeIcon = false;
   }
 
 
@@ -142,12 +146,12 @@ setQueryDateTo(event:any,key:string){
       }
     }
 
-    return flag?{"color":"orange"}:{};
+    return flag && this.activeIcon?{"color":"orange"}:{};
   }
 
 
   firstUpperCase(word:string) {
-    return (word.charAt(0).toUpperCase() + word.slice(1)).replace("_"," ");
+    return (word.charAt(0).toUpperCase() + word.slice(1)).replace("_"," ").replace("Ano","Año");
   }
 
 }

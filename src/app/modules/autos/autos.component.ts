@@ -116,11 +116,6 @@ export class AutosComponent implements OnInit {
 
     setQueryItems(query:any){
       this.queryItems = query;
-      this.getItems();
-    }
-
-
-    reloadPaginator(){
       this.first = 0;
       this.getItems();
     }
