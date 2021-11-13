@@ -17,7 +17,7 @@ export class UsuarioCardComponent implements OnInit {
   @Output() sendUsuario:EventEmitter<Usuario> = new EventEmitter<Usuario>();
   
 
-  formUser:FormGroup = new FormGroup({});
+  formUsuario:FormGroup = new FormGroup({});
   tiposUsuario:any[] = [];
   loadUserIcon:boolean = false;
   
@@ -39,7 +39,7 @@ export class UsuarioCardComponent implements OnInit {
   
   
   buildForm(){
-  this.formUser = new FormGroup({
+  this.formUsuario = new FormGroup({
     id: new FormControl(this.usuarioTarget.id),
     fecha_creacion: new FormControl(this.usuarioTarget.fecha_creacion),
     fecha_alteracion: new FormControl(this.usuarioTarget.fecha_alteracion),
@@ -58,8 +58,8 @@ export class UsuarioCardComponent implements OnInit {
   validate()
   {
     
-    for(let c in this.formUser.controls){
-      this.formErrors[c] = this.sysMsg.getFormMessages(this.formUser.get(c)?.errors);
+    for(let c in this.formUsuario.controls){
+      this.formErrors[c] = this.sysMsg.getFormMessages(this.formUsuario.get(c)?.errors);
     }  
       this.focusFieldError();
   }
@@ -85,10 +85,10 @@ export class UsuarioCardComponent implements OnInit {
   submit(event:Event){
     event.preventDefault();
   
-    if(this.formUser.valid){
+    if(this.formUsuario.valid){
   
       let auto:Usuario = new Usuario();
-      Object.assign(auto,Utils.convertUpperCase(this.formUser.value));
+      Object.assign(auto,Utils.convertUpperCase(this.formUsuario.value));
      
       console.log(auto);
 

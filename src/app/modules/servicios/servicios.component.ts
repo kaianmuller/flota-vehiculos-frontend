@@ -23,6 +23,7 @@ export class ServiciosComponent implements OnInit {
     @ViewChild('pag') pag!:Paginator;
 
     dispForm: boolean = false;
+    dispInfo:boolean = false;
 
     formatN = new Intl.NumberFormat('es-ES');
 
@@ -70,9 +71,11 @@ export class ServiciosComponent implements OnInit {
 
 
 
-    showInfo(item:Servicio){
+  showInfo(item:Servicio){
     this.itemTarget = item;
+    this.dispInfo = true;
     }
+
 
 
     editItem(item:Servicio){

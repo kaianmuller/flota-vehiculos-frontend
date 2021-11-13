@@ -1,0 +1,17 @@
+<div class="panel">
+    <form [formGroup]="formServicio" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()" >
+    
+        <div class="p-field">
+            <label>Estado</label>
+            <div class="field-out">
+                <p-selectButton id="estado" formControlName="estado" [options]="estados"  optionLabel="name" optionValue="value" [multiple]="false" ></p-selectButton>
+            </div>
+        </div>
+        
+     
+
+
+
+    
+    </form>
+    </div>

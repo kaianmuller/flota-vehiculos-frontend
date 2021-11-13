@@ -14,12 +14,15 @@
             <tr>
                 <th>Descripcion</th>
                 <th>Estado</th>
+                <th>Auto</th>
+                <th>Usuario</th>
                 <th>Fecha Inicio</th>
                 <th>Kilometraje Inicial</th>
                 <th>Fecha Fin</th>
                 <th>Kilometraje Final</th>
                 <th>Fecha Alter.</th>
                 <th>Fecha Creac.</th>
+                <th>Más info.</th>
                 <th><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
         </ng-template>
@@ -33,6 +36,7 @@
                 <td>{{formatN.format(item.km_final) + ' KM'}}</td>
                 <td>{{item.fecha_alteracion | date:'dd/MM/YY'}}</td>
                 <td>{{item.fecha_creacion | date:'dd/MM/YY'}}</td>
+                <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>
                 <td>
                     <div class="opciones">
                         <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem(item)" ></button>
@@ -51,3 +55,15 @@
 
 
 
+<p-dialog header="Informacion adicional" [(visible)]="dispInfo" [modal]="true">
+    <div class="panel-info">
+            <label><b>Chassis:</b> </label>
+            <label><b>Año del modelo:</b> </label>
+            <label><b>Año de fabricacion:</b> </label>
+    </div>
+</p-dialog>
+
+
+<p-dialog [header]="!isEmpty(itemTarget)?'Editar Servicio':'Nuevo Servicio'" [(visible)]="dispForm" [modal]="true">
+    <app-servicio-card *ngIf="dispForm" [servicioTarget]="itemTarget" (sendServicio)="sendItem($event)"></app-servicio-card>
+</p-dialog>
