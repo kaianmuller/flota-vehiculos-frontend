@@ -144,8 +144,8 @@ export class UsuarioCardComponent implements OnInit {
   
 
 
-  isEmpty(){
-    return Utils.isEmpty(this.usuarioTarget);
+  isEmpty(item:any){
+    return Utils.isEmpty(item);
   }
   
   

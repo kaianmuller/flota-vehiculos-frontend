@@ -7,6 +7,17 @@
                 <p-selectButton id="estado" formControlName="estado" [options]="estados"  optionLabel="name" optionValue="value" [multiple]="false" ></p-selectButton>
             </div>
         </div>
+
+        <div class="p-field">
+            <label>Usuario</label>
+            <app-search-filter *ngIf="!getFormControlValue('usuario')" [select]="true" [selectHeader]="['login','nombre','tipo_usuario']" (item)="setFormControlValue('usuario',$event)" [selectService]="usuarioServ" [config]="usuarioSearchConfig"></app-search-filter>
+            <div class="field-out">
+            <span class="p-input-icon-right" *ngIf="getFormControlValue('usuario')">
+                <i  [class]="!isEmpty(getFormControlValue('usuario'))?'fas fa-times':''" (click)="setFormControlValue('usuario',null)"></i>
+                <input id="usuario-input" type="text" [value]="getFormControlValue('usuario').login" pInputText   pTooltip="Eliminar" readonly>    
+            </span>
+            </div>
+        </div>
         
      
 

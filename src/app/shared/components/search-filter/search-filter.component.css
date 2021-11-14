@@ -11,8 +11,35 @@
 }
 
 #search-input{
-    width: 250px;
+    width: 380px;
 }
+
+
+.table{
+    position: fixed;
+    width: 380px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+
+th{
+    font-size: small;
+}
+
+tr:hover{
+    background-color: lightgray;
+}
+
+td{
+    font-size: small;
+}
+
+
+
+
+
+
 
 
 #filter{

@@ -7,8 +7,12 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 })
 export class SearchFilterComponent implements OnInit {
 
-@Input() items!:any;
+@Input() config!:{[key:string]:any};
+@Input() select!:boolean;
+@Input() selectHeader!:Array<string>;
+@Input() selectService!:any;
 @Output() query:EventEmitter<{}> = new EventEmitter<{}>();
+@Output() item:EventEmitter<any> = new EventEmitter<any>();
 
 numbers:any = []
 strings:any = [];
@@ -18,13 +22,20 @@ dates:any = [];
 inputSearchText:string = '';
 
 
+
 querySearch:{[key:string]:any} = {};
 queryFilter:{[key:string]:any} = {};
 
 queryFinal:{[key:string]:any} = {};
 
-
 activeIcon:boolean = false;
+
+
+
+items:any = [];
+maxWidthRow:string = "130px";
+maxHeightRow:string = "40px";
+rows = 15;
 
   constructor() { }
 
@@ -39,15 +50,15 @@ activeIcon:boolean = false;
 
 
   separeItems(){
-    for(let key in this.items){
-      if(typeof this.items[key] != 'string'){
-          this.enums.push({key:key,entries:{keys:Object.keys(this.items[key]),values:Object.values(this.items[key])}});
+    for(let key in this.config){
+      if(typeof this.config[key] != 'string'){
+          this.enums.push({key:key,entries:{keys:Object.keys(this.config[key]),values:Object.values(this.config[key])}});
       }else{
-        if(this.items[key] == 'number'){
+        if(this.config[key] == 'number'){
           this.numbers.push({key:key});
-        }else if(this.items[key] == 'string'){
+        }else if(this.config[key] == 'string'){
           this.strings.push({key:key});
-        }else if(this.items[key] == 'date'){
+        }else if(this.config[key] == 'date'){
           this.dates.push({key:key});
         }
       }
@@ -84,7 +95,7 @@ for(let d of this.dates){
   setInputSearchText(event:any){
     this.inputSearchText = event.target.value;
     this.setQuerySearch();
-    this.inputSearchText?true:this.sendQuery();
+    this.sendQuery();
   }
 
 
@@ -120,11 +131,29 @@ setQueryDateTo(event:any,key:string){
 
 
 
+
+
+getItems(){
+  if(this.selectService && this.config){
+    this.selectService.getAll({skip:0,take:this.rows,search:JSON.stringify(this.queryFinal)}).then((result:any)=>{this.items = result});
+  }
+}
+
+
+
   sendQuery(){
     Object.assign(this.queryFinal,this.queryFilter);
     Object.assign(this.queryFinal,this.querySearch);
     this.query.emit(this.queryFinal);
     this.activeIcon = true;
+    this.getItems();
+  }
+
+
+  sendItem(item:any){
+    this.item.emit(item);
+    this.inputSearchText = '';
+    this.items = [];
   }
 
 
@@ -150,8 +179,13 @@ setQueryDateTo(event:any,key:string){
   }
 
 
+  setBackgroundFirstItem(){
+    return this.items.length == 1?{'background-color':'lightblue'}:{};
+  }
+
+
   firstUpperCase(word:string) {
-    return (word.charAt(0).toUpperCase() + word.slice(1)).replace("_"," ").replace("Ano","Año");
+    return (word.charAt(0).toUpperCase() + word.slice(1)).replace("_"," ").replace("Ano","Año").replace("Login","Username");
   }
 
 }

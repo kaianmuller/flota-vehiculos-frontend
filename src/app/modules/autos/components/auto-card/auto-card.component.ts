@@ -146,8 +146,8 @@ formErrors:{[k: string]: string} = {};
   }
   
 
-  isEmpty(){
-    return Utils.isEmpty(this.autoTarget);
+  isEmpty(item:any){
+    return Utils.isEmpty(item);
   }
   
   

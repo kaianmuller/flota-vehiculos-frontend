@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {CalendarModule} from 'primeng/calendar';
 import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { TooltipModule } from 'primeng/tooltip';
     MenuModule,
     OverlayPanelModule,
     CalendarModule,
-    TooltipModule
+    TooltipModule,
+    TableModule,
   ],
   exports:[
     MainMenuComponent,

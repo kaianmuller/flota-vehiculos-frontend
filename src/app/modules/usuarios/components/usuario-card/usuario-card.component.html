@@ -37,7 +37,7 @@
     
     
         <div class="p-field" class="panel-inferior">
-        <button *ngIf="isEmpty()" id="vaciar" type="button" label="Vaciar" pButton (click)="resetForm()"></button>
+        <button *ngIf="isEmpty(usuarioTarget)" id="vaciar" type="button" label="Vaciar" pButton (click)="resetForm()"></button>
         <button id="enviar" type="submit" label="Enviar" icon="fas fa-save" pButton></button>
         </div>
     

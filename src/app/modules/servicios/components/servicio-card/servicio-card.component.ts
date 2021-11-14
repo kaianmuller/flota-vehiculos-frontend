@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, AbstractControl, FormControl, Validators } from '@angular/forms';
 import { ServiciosService } from 'src/app/core/services/servicios/servicios.service';
 import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
+import { UsuariosService } from 'src/app/core/services/usuarios/usuarios.service';
 import { EstadoServicio } from 'src/app/shared/enums/estado-servicio.enum';
+import { TipoUsuario } from 'src/app/shared/enums/tipo-usuario.enum';
 import { Servicio } from 'src/app/shared/models/Servicio.model';
 import Utils from 'src/app/shared/utils/Utils';
 
@@ -23,8 +25,18 @@ export class ServicioCardComponent implements OnInit {
   
   formErrors:{[k: string]: string} = {};
   
-  
-    constructor(private servicioServ:ServiciosService,private sysMsg:SystemMessagesService) {
+
+  usuarioSearchConfig:{[key:string]:any} = {
+    login: 'string',
+    nombre: 'string',
+    descripcion: 'string',
+    tipo_usuario: TipoUsuario,
+    fecha_alteracion:'date',
+    fecha_creacion: 'date',
+  };
+
+
+    constructor(private servicioServ:ServiciosService,private sysMsg:SystemMessagesService,readonly usuarioServ:UsuariosService) {
       this.estados = this.getEstadoServicio();
     }
   
@@ -38,7 +50,9 @@ export class ServicioCardComponent implements OnInit {
         fecha_creacion: new FormControl(this.servicioTarget.fecha_creacion),
         fecha_alteracion: new FormControl(this.servicioTarget.fecha_alteracion),
         descripcion: new FormControl(this.servicioTarget.descripcion,[Validators.maxLength(150)]),
-        estado: new FormControl(!Utils.isEmpty(this.servicioTarget)?this.servicioTarget.estado:this.estados[0].value,[Validators.required])
+        estado: new FormControl(!Utils.isEmpty(this.servicioTarget)?this.servicioTarget.estado:this.estados[0].value,[Validators.required]),
+        usuario: new FormControl(this.servicioTarget.usuario,[Validators.required]),
+        auto: new FormControl(this.servicioTarget.auto,[Validators.required]),
       });
   
       this.resetValidate();
@@ -139,10 +153,19 @@ export class ServicioCardComponent implements OnInit {
     }
     
   
-    isEmpty(){
-      return Utils.isEmpty(this.servicioTarget);
+    isEmpty(item:any){
+        return Utils.isEmpty(item);
     }
     
+    setFormControlValue(field:string,value:any){
+      this.formServicio.get(field)?.setValue(value);
+    }
+
+    getFormControlValue(field:string){
+      return this.formServicio.get(field)?.value;
+    }
+
+
     /*
     async exist(control: AbstractControl) {
       this.loadChapaIcon = true;
