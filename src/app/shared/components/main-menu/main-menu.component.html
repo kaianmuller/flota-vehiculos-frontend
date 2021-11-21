@@ -1,4 +1,4 @@
 <p-menubar [model]="items">
-        <button id="profile" pButton icon="fas fa-user" (click)="menu.toggle($event)" ></button>
+        <button id="profile" pButton icon="fas fa-chevron-down" (click)="menu.toggle($event)" ></button>
         <p-menu #menu [model]="profile_items" [popup]="true"></p-menu>  
 </p-menubar>

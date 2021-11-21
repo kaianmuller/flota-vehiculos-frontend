@@ -61,6 +61,6 @@
 
 
 
-<p-dialog [header]="!isEmpty(itemTarget)?'Editar Auto':'Nuevo Auto'" [(visible)]="dispForm" [modal]="true">
+<p-dialog [header]="!isEmpty(itemTarget)?'Editar Auto':'Nuevo Auto'" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
     <app-auto-card *ngIf="dispForm" [autoTarget]="itemTarget" (sendAuto)="sendItem($event)"></app-auto-card>
 </p-dialog>

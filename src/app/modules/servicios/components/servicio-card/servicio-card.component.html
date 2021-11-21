@@ -1,6 +1,14 @@
 <div class="panel">
     <form [formGroup]="formServicio" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()" >
     
+
+        <div class="p-field">
+            <label>Tipo de servicio</label>
+            <div class="field-out">
+                <p-selectButton id="tipo_servicio" [options]="tiposServicio"  optionLabel="name" optionValue="value" [multiple]="false" (keyup.enter)="focusField('disponibilidad')"></p-selectButton>
+            </div>
+        </div>
+
         <div class="p-field">
             <label>Estado</label>
             <div class="field-out">
@@ -10,13 +18,12 @@
 
         <div class="p-field">
             <label>Usuario</label>
-            <app-search-filter *ngIf="!getFormControlValue('usuario')" [select]="true" [selectHeader]="['login','nombre','tipo_usuario']" (item)="setFormControlValue('usuario',$event)" [selectService]="usuarioServ" [config]="usuarioSearchConfig"></app-search-filter>
-            <div class="field-out">
-            <span class="p-input-icon-right" *ngIf="getFormControlValue('usuario')">
-                <i  [class]="!isEmpty(getFormControlValue('usuario'))?'fas fa-times':''" (click)="setFormControlValue('usuario',null)"></i>
-                <input id="usuario-input" type="text" [value]="getFormControlValue('usuario').login" pInputText   pTooltip="Eliminar" readonly>    
-            </span>
-            </div>
+            <app-search-filter [select]="true" [selectHeader]="['login','nombre','tipo_usuario']" (item)="setFormControlValue('usuario',$event)" [selectService]="usuarioServ" [config]="usuarioSearchConfig"></app-search-filter>
+        </div>
+
+        <div class="p-field">
+            <label>Auto</label>
+            <app-search-filter [select]="true" [condition]="{disponibilidad:{value:'DISPONIBLE'}}" [selectHeader]="['chapa','modelo','disponibilidad']" (item)="setFormControlValue('auto',$event)" [selectService]="autoServ" [config]="autoSearchConfig"></app-search-filter>
         </div>
         
      

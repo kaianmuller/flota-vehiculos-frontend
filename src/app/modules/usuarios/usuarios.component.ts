@@ -52,11 +52,8 @@ export class UsuariosComponent implements OnInit {
   
   
       getItems(){
-        if(this.queryItems){
-          this.usuarioServ.getAll({skip:this.first,take:this.rows,search:JSON.stringify(this.queryItems)}).then((result)=>{this.items = result;console.log(result)});
-        }else{
-          this.usuarioServ.getAll({skip:this.first,take:this.rows}).then((result)=>this.items = result);
-        } 
+          this.usuarioServ.getAll({skip:this.first,take:this.rows,search:JSON.stringify(this.queryItems)}).then((result)=>{this.items = result});
+          this.usuarioServ.getCount({search:JSON.stringify(this.queryItems)}).then(result=>this.totalRecords = result);
       }
   
       paginate(event:any) {

@@ -56,11 +56,8 @@ export class ServiciosComponent implements OnInit {
 
 
     getItems(){
-      if(this.queryItems){
-        this.servicioServ.getAll({skip:this.first,take:this.rows,search:JSON.stringify(this.queryItems)}).then((result)=>{this.items = result;console.log(result)});
-      }else{
-        this.servicioServ.getAll({skip:this.first,take:this.rows}).then((result)=>this.items = result);
-      } 
+        this.servicioServ.getAll({skip:this.first,take:this.rows,search:JSON.stringify(this.queryItems)}).then((result)=>{this.items = result});
+        this.servicioServ.getCount({search:JSON.stringify(this.queryItems)}).then(result=>this.totalRecords = result);
     }
 
     paginate(event:any) {

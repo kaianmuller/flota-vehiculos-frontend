@@ -1,12 +1,17 @@
 <div class="page">
-    <button id="filter" pButton icon="fas fa-filter" (click)="op.toggle($event)" pTooltip="Filtros" [style]="activeFiltersStyle()"></button>
+    <button *ngIf="!select" id="filter" pButton icon="fas fa-filter" (click)="op.toggle($event)" pTooltip="Filtros" [style]="activeFiltersStyle()"></button>
     <div class="p-field">
         <div class="field-out">
-            <span class="p-input-icon-right">
-            <i  [class]="inputSearchText?'fas fa-times':''" (click)="inputSearchText = '';setQuerySearch();sendQuery()"></i>
-            <input id="search-input" type="text" [value]="inputSearchText" pInputText (keyup.enter)="items.length == 1?sendItem(items[0]):true" (focus)="sendQuery()" (blur)="items=[]" (keyup)="setInputSearchText($event)" pTooltip="Buscar" autocomplete="off">    
+            <div class="p-field">
+            <span *ngIf="itemTarget" class="p-input-icon-right">
+                    <i  [class]="itemTarget?'fas fa-times':''" (click)="itemTarget = null;sendItem(null);inputSearchText=''"></i>
+                    <input id="select-input" type="text" [value]="itemTarget[selectHeader[0]]"  [style]="itemTarget?{'background-color':'lightgreen'}:{}" pInputText   pTooltip="Eliminar" readonly>    
             </span>
-            <div class="table" *ngIf="select && this.items.length > 0">
+            <span *ngIf="!itemTarget" class="p-input-icon-right">
+            <i  [class]="inputSearchText?'fas fa-times':''" (click)="inputSearchText = '';setQuerySearch();sendQuery()"></i>
+            <input id="search-input" type="text" [value]="inputSearchText" pInputText (blur)="!inTable?showTable=false:true" (keyup.enter)="items.length == 1?sendItem(items[0]):true" (keyup.escape)="showTable=false;inputSearchText=''"  (keyup)="setInputSearchText($event)" pTooltip="Buscar" autocomplete="off">    
+            </span>
+            <div class="table" *ngIf="select && showTable && inputSearchText && selectHeader" (mouseenter)="inTable = true" (mouseleave)="inTable = false">
                 <p-table #table [value]="items" [scrollable]="true" scrollHeight="200px">
                 <ng-template pTemplate="header">
                     <tr>

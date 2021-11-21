@@ -67,13 +67,9 @@ isLogged():boolean{
   let fechaExpireString = this.getExpire();
 
   let fechaExpireDate = null;
-
   if(fechaExpireString){
-  fechaExpireDate = new Date();
-  fechaExpireDate.setUTCMilliseconds(parseInt(fechaExpireString));
+  fechaExpireDate = new Date(parseInt(fechaExpireString) * 1000);
   }
-
-
 
 return (!!this.getToken() && !!fechaExpireDate &&  fechaActual < fechaExpireDate);
 }

@@ -47,6 +47,6 @@
 
 
 
-<p-dialog [header]="!isEmpty(itemTarget)?'Editar Usuario':'Nuevo Usuario'" [(visible)]="dispForm" [modal]="true">
+<p-dialog [header]="!isEmpty(itemTarget)?'Editar Usuario':'Nuevo Usuario'" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
     <app-usuario-card *ngIf="dispForm" [usuarioTarget]="itemTarget" (sendUsuario)="sendItem($event)"></app-usuario-card>
 </p-dialog>

@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import Utils from '../../utils/Utils';
 
 @Component({
   selector: 'app-search-filter',
@@ -11,6 +12,7 @@ export class SearchFilterComponent implements OnInit {
 @Input() select!:boolean;
 @Input() selectHeader!:Array<string>;
 @Input() selectService!:any;
+@Input() condition!:any;
 @Output() query:EventEmitter<{}> = new EventEmitter<{}>();
 @Output() item:EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,11 +33,13 @@ queryFinal:{[key:string]:any} = {};
 activeIcon:boolean = false;
 
 
-
+showTable:boolean = false;
 items:any = [];
 maxWidthRow:string = "130px";
 maxHeightRow:string = "40px";
-rows = 15;
+rows = 10;
+inTable:boolean = false;
+itemTarget!:any;
 
   constructor() { }
 
@@ -93,9 +97,12 @@ for(let d of this.dates){
 
 
   setInputSearchText(event:any){
+    if(event.key != 'Escape'){
     this.inputSearchText = event.target.value;
     this.setQuerySearch();
     this.sendQuery();
+    this.item.emit(null);
+    }
   }
 
 
@@ -130,18 +137,32 @@ setQueryDateTo(event:any,key:string){
 }
 
 
-
-
-
-getItems(){
-  if(this.selectService && this.config){
-    this.selectService.getAll({skip:0,take:this.rows,search:JSON.stringify(this.queryFinal)}).then((result:any)=>{this.items = result});
+setConditionQuery(){
+  if(this.condition){
+    for(let k in this.condition){
+    if(this.condition[k].value){
+      this.queryFilter[k] = this.condition[k];
+    }
+    }
   }
 }
 
 
 
+
+getItems(){
+  if(this.select && this.selectService && this.config){
+    this.selectService.getAll({skip:0,take:this.rows,search:JSON.stringify(this.queryFinal)}).then((result:any)=>{this.items = result});
+  }
+  this.showTable=true;
+}
+
+
+
+
+
   sendQuery(){
+    this.setConditionQuery();
     Object.assign(this.queryFinal,this.queryFilter);
     Object.assign(this.queryFinal,this.querySearch);
     this.query.emit(this.queryFinal);
@@ -151,6 +172,7 @@ getItems(){
 
 
   sendItem(item:any){
+    this.itemTarget = item;
     this.item.emit(item);
     this.inputSearchText = '';
     this.items = [];
@@ -185,7 +207,7 @@ getItems(){
 
 
   firstUpperCase(word:string) {
-    return (word.charAt(0).toUpperCase() + word.slice(1)).replace("_"," ").replace("Ano","Año").replace("Login","Username");
+  return  Utils.firstUpperCase(word);
   }
 
 }

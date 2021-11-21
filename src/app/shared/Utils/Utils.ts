@@ -3,26 +3,22 @@ export default class Utils{
   
   
   static ip() {
-        return "http://localhost:3000";
+        return "http://192.168.100.37:3000";
     }
   
 
 
-    static convertUpperCase(obj:any){
-      for(let key in obj){
-        if(typeof obj[key] == 'string' && key != 'descripcion' && key != 'login' && key != 'contrasena'){
-          obj[key] = obj[key].toUpperCase();
-        }
-      }
-      return obj;
+    static firstUpperCase(word:string) {
+      return (word.charAt(0).toUpperCase() + word.slice(1)).replace("_"," ").replace("Ano","Año").replace("Login","Username");
     }
 
 
     static isEmpty(obj:any){
-      if(Object.values(obj).length===0){
-        return true;
+
+      if(obj && Object.values(obj).length !== 0){
+        return false;
       }
-      return false;
+      return true;
     }
 
     

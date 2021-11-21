@@ -33,6 +33,7 @@ export class UsuarioCardComponent implements OnInit {
      }
   
     ngOnInit(): void {
+      console.log(this.usuarioTarget);
       this.buildForm();
     }
   
@@ -88,7 +89,7 @@ export class UsuarioCardComponent implements OnInit {
     if(this.formUsuario.valid){
   
       let auto:Usuario = new Usuario();
-      Object.assign(auto,Utils.convertUpperCase(this.formUsuario.value));
+      Object.assign(auto,this.formUsuario.value);
      
       console.log(auto);
 
@@ -151,9 +152,9 @@ export class UsuarioCardComponent implements OnInit {
   
   async exist(control: AbstractControl) {
     this.loadUserIcon = true;
-    return this.userServ.existUserByLogin(control.value.toUpperCase()).then((value) => {
+    return this.userServ.existUserByLogin(control.value).then((value) => {
       this.loadUserIcon = false;
-      if(value){
+      if(value && Utils.isEmpty(this.usuarioTarget)){
         return {'existe':true};
       }else{
         return null;

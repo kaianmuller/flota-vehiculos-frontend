@@ -64,6 +64,6 @@
 </p-dialog>
 
 
-<p-dialog [header]="!isEmpty(itemTarget)?'Editar Servicio':'Nuevo Servicio'" [(visible)]="dispForm" [modal]="true">
+<p-dialog [header]="!isEmpty(itemTarget)?'Editar Servicio':'Nuevo Servicio'" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
     <app-servicio-card *ngIf="dispForm" [servicioTarget]="itemTarget" (sendServicio)="sendItem($event)"></app-servicio-card>
 </p-dialog>

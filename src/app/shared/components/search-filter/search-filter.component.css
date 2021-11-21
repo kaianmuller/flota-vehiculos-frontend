@@ -5,13 +5,14 @@
 
 
 
-#search-button{
-    width: 55px;
-    margin-left: 5px;
-}
 
 #search-input{
     width: 380px;
+}
+
+#select-input{
+    width: 380px;
+    text-align: center;
 }
 
 
@@ -29,6 +30,7 @@ th{
 
 tr:hover{
     background-color: lightgray;
+    cursor: pointer;
 }
 
 td{

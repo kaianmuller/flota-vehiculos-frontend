@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, AbstractControl, FormControl, Validators } from '@angular/forms';
+import { AutosService } from 'src/app/core/services/autos/autos.service';
 import { ServiciosService } from 'src/app/core/services/servicios/servicios.service';
 import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { UsuariosService } from 'src/app/core/services/usuarios/usuarios.service';
+import { DisponibilidadAuto } from 'src/app/shared/enums/disponibilidad-auto.enum';
 import { EstadoServicio } from 'src/app/shared/enums/estado-servicio.enum';
 import { TipoUsuario } from 'src/app/shared/enums/tipo-usuario.enum';
 import { Servicio } from 'src/app/shared/models/Servicio.model';
@@ -22,6 +24,7 @@ export class ServicioCardComponent implements OnInit {
   loadChapaIcon:boolean = false;
   
   estados:any[] = [];
+  tiposServicio:any[] = [];
   
   formErrors:{[k: string]: string} = {};
   
@@ -35,8 +38,22 @@ export class ServicioCardComponent implements OnInit {
     fecha_creacion: 'date',
   };
 
+  autoSearchConfig:{[key:string]:any} = {
+    disponibilidad:DisponibilidadAuto,
+    chapa: 'string',
+    kilometraje: 'number',
+    fabricante: 'string',
+    ano_modelo: 'number',
+    modelo: 'string',
+    ano_fabricacion: 'number',
+    chassis: 'string',
+    descripcion: 'string',
+    fecha_alteracion:'date',
+    fecha_creacion: 'date',
+  };
 
-    constructor(private servicioServ:ServiciosService,private sysMsg:SystemMessagesService,readonly usuarioServ:UsuariosService) {
+
+    constructor(private servicioServ:ServiciosService,private sysMsg:SystemMessagesService,readonly usuarioServ:UsuariosService,readonly autoServ:AutosService) {
       this.estados = this.getEstadoServicio();
     }
   
@@ -51,6 +68,11 @@ export class ServicioCardComponent implements OnInit {
         fecha_alteracion: new FormControl(this.servicioTarget.fecha_alteracion),
         descripcion: new FormControl(this.servicioTarget.descripcion,[Validators.maxLength(150)]),
         estado: new FormControl(!Utils.isEmpty(this.servicioTarget)?this.servicioTarget.estado:this.estados[0].value,[Validators.required]),
+        fecha_inicio:new FormControl(this.servicioTarget.fecha_inicio,[Validators.required]),
+        fecha_fin:new FormControl(this.servicioTarget.fecha_fin,this.verificarEstado('EN_PROCESO')),
+        km_inicial:new FormControl(this.servicioTarget.km_inicial,[Validators.required]),
+        km_final:new FormControl(this.servicioTarget.km_final,this.verificarEstado('EN_PROCESO')),
+        valor_servicio:new FormControl(this.servicioTarget.valor_servicio,this.verificarEstado('EN_PROCESO')),
         usuario: new FormControl(this.servicioTarget.usuario,[Validators.required]),
         auto: new FormControl(this.servicioTarget.auto,[Validators.required]),
       });
@@ -58,6 +80,8 @@ export class ServicioCardComponent implements OnInit {
       this.resetValidate();
   
     }
+  
+
   
   
     validate()
@@ -84,6 +108,14 @@ export class ServicioCardComponent implements OnInit {
         return valores;
       }
     
+
+
+      verificarEstado(estado:string){
+      if(!Utils.isEmpty(this.servicioTarget)){
+        return this.servicioTarget.estado.toString() == estado?[Validators.required]:[];
+      }
+       return [];
+      }
     
     
     submit(event:Event){
@@ -92,7 +124,7 @@ export class ServicioCardComponent implements OnInit {
       if(this.formServicio.valid){
     
         let servicio:Servicio = new Servicio();
-        Object.assign(servicio,Utils.convertUpperCase(this.formServicio.value));
+        Object.assign(servicio,this.formServicio.value);
        
         console.log(servicio);
   
@@ -118,14 +150,14 @@ export class ServicioCardComponent implements OnInit {
     
     resetValidate(){
       this.formErrors = {
-        chapa: '',
-        kilometraje: '',
-        fabricante: '',
-        ano_modelo: '',
-        modelo: '',
-        ano_fabricacion: '',
-        chassis: '',
-        descripcion: ''
+        estado: '',
+        fecha_inicio:'',
+        fecha_fin:'',
+        km_inicial:'',
+        km_final:'',
+        valor_servicio:'',
+        usuario: '',
+        auto: '',
       };
     }
     
@@ -159,10 +191,6 @@ export class ServicioCardComponent implements OnInit {
     
     setFormControlValue(field:string,value:any){
       this.formServicio.get(field)?.setValue(value);
-    }
-
-    getFormControlValue(field:string){
-      return this.formServicio.get(field)?.value;
     }
 
 

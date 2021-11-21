@@ -87,7 +87,7 @@ submit(event:Event){
   if(this.formReg.valid && this.validRep()){
 
     let user:Usuario = new Usuario();
-    Object.assign(user,Utils.convertUpperCase(this.formReg.value));
+    Object.assign(user,this.formReg.value);
     user.fecha_creacion = new Date();
 
     console.log(this.formReg.value);
@@ -151,7 +151,7 @@ document.getElementById(field)?.focus();
 
 async exist(control: AbstractControl) {
   this.loadUserIcon = true;
-  return this.userServ.existUserByLogin(control.value.toUpperCase()).then((value) => {
+  return this.userServ.existUserByLogin(control.value).then((value) => {
     this.loadUserIcon = false;
     if(value){
       return {'existe':true};

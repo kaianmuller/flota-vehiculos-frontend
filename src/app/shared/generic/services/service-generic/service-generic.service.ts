@@ -7,16 +7,12 @@ export class ServiceGenericService <E>{
   constructor(private serviceName:string,private readonly _http:HttpClient) { }
 
 
-async getCount() {
-    return await this._http.get<number>(Utils.ip()+"/"+this.serviceName+'/count').toPromise();   
+async getCount(params?:Params) {
+    return await this._http.get<number>(Utils.ip()+"/"+this.serviceName+'/count',{params:params}).toPromise();  
 }
 
   async getAll(params?:Params) {
-    if(params){
         return await this._http.get<Array<E>>(Utils.ip()+"/"+this.serviceName,{params:params}).toPromise();
-    }else{
-        return await this._http.get<Array<E>>(Utils.ip()+"/"+this.serviceName).toPromise();   
-    }
 }
 
 async getOne(id:number){

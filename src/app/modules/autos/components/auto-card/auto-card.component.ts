@@ -85,7 +85,7 @@ formErrors:{[k: string]: string} = {};
     if(this.formAuto.valid){
   
       let auto:Auto = new Auto();
-      Object.assign(auto,Utils.convertUpperCase(this.formAuto.value));
+      Object.assign(auto,this.formAuto.value);
      
       console.log(auto);
 
@@ -153,7 +153,7 @@ formErrors:{[k: string]: string} = {};
   
   async exist(control: AbstractControl) {
     this.loadChapaIcon = true;
-    return this.autoServ.existAutoByChapa(control.value.toUpperCase()).then((value) => {
+    return this.autoServ.existAutoByChapa(control.value).then((value) => {
       this.loadChapaIcon = false;
       if(value && Utils.isEmpty(this.autoTarget)){
         return {'existe':true};

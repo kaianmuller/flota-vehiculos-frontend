@@ -12,10 +12,10 @@ constructor(private router:Router,private authServ:AuthService){}
 
 
   canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    
-  if(!this.authServ.isLogged())
-    this.redirect();
 
+  if(!this.authServ.isLogged()){
+    this.redirect();
+  }
   
   return true;
   }
