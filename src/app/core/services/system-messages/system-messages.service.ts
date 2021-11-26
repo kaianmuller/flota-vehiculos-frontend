@@ -25,6 +25,8 @@ formMessages = Array<{[key:string]:any}>();
       {existe:'- El elemento ingresado ya existe en el sistema!'},
       {select:'- Debes seleccionar un elemento!'},
       {maxlength:'- Excediste el numero maximo de caracteres permitido!'},
+      {minDate:'- Debes elegir una fecha futura!'},
+      {min:'- Este campo requiere un valor superior!'},
     ];
 
   }
@@ -36,10 +38,9 @@ getFormMessages(validator:any){
   
   if(validator){
     this.formMessages.map((m)=>{
-      for(let key in m){
+      let key = Object.keys(m)[0];
         if(validator.hasOwnProperty(key)){
           msgs += m[key] + "\n";
-        }
       }
     }
     );

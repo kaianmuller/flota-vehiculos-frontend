@@ -12,7 +12,13 @@ export class AppComponent {
 
 
   constructor(private authServ:AuthService,private router:Router){
+  this.authServ.getInfo().subscribe((result:any)=>{
+      this.authServ.userLogin = result.login;
+  });
+  }
 
+
+  ngOnInit(){
   }
 
   isLogged():boolean{

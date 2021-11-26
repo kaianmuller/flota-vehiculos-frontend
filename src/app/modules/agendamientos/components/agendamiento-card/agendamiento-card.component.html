@@ -1,0 +1,77 @@
+<div class="panel">
+    <form [formGroup]="formAgendamiento" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()" >
+      <div class="panel-superior">
+
+        <div class="panel-left">
+            <div class="p-field">
+                <label>Auto</label>
+                <app-search-filter [idSearch]="'auto'" #auto [select]="true" [condition]="{disponibilidad:{value:'DISPONIBLE'}}" [selectHeader]="['chapa','modelo','disponibilidad']" (item)="setFormControlValue('auto',$event)" [selectService]="autoServ" [config]="autoSearchConfig" [validate]="formErrors.auto" [setItemTarget]="this.agendamientoTarget.auto"></app-search-filter>
+            </div>
+
+            <div class="p-field">
+                <label>Usuario</label>
+                    <app-search-filter [idSearch]="'usuario'" #usuario [select]="true" [selectHeader]="['login','nombre','tipo_usuario']" (item)="setFormControlValue('usuario',$event)" [selectService]="usuarioServ" [config]="usuarioSearchConfig" [validate]="formErrors.usuario" [setItemTarget]="this.agendamientoTarget.usuario"></app-search-filter>
+            </div>
+
+            <div class="p-field">
+                <label>Descripcion</label>
+                <div class="field-out">
+                <textarea id="descripcion" formControlName="descripcion"  pInputTextarea  (keyup.enter)="focusField('')"  [pTooltip]="formErrors.descripcion" tooltipEvent="focus" [style]="markField('descripcion')"></textarea>   
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="panel-right">
+
+            <div class="p-field">
+            <label>Tipo de servicio</label>
+            <div class="field-out">
+            <select id="tipo_servicio" formControlName="tipo_servicio"  [pTooltip]="formErrors.tipo_servicio" tooltipEvent="focus" [style]="markField('tipo_servicio')">
+                <option *ngFor="let i of tiposServicio" [value]="i.id">{{i.descripcion}}</option>
+            </select>
+            </div>
+            </div>
+
+            <div class="time">
+                <div class="p-field">
+                    <label>Tipo</label>
+                    <div class="field-out">
+                        <p-selectButton id="tipo" formControlName="tipo" [options]="tiposAgendamiento"  optionLabel="name" optionValue="value" [multiple]="false" (keyup.enter)="focusField('')"></p-selectButton>
+                    </div>
+                </div>
+        
+                <div class="p-field" id="fijo" *ngIf="formAgendamiento.get('tipo')?.value == 'FIJO'">
+                    <label>Fecha Objetivo</label>
+                    <div class="field-out">
+                        <input id="fecha_objetivo" type="date" formControlName="fecha_objetivo" [pTooltip]="formErrors.fecha_objetivo" tooltipEvent="focus" [style]="markField('fecha_objetivo')">
+                    </div>
+                </div>
+            
+                <div id="periodico" *ngIf="formAgendamiento.get('tipo')?.value == 'PERIODICO'">
+                <div class="p-field">
+                    <label>Tipo periodo</label>
+                    <div class="field-out">
+                        <p-selectButton id="tipo_periodo" formControlName="tipo_periodo" [options]="tiposPeriodo"  optionLabel="name" optionValue="value" [multiple]="false" (keyup.enter)="focusField('')"></p-selectButton>
+                    </div>
+                </div>
+        
+                <div class="p-field">
+                    <label>Periodo</label>
+                    <div class="field-out">
+                        <input id="periodo" type="number" formControlName="periodo" (keyup.enter)="focusField('periodo')" [pTooltip]="formErrors.periodo" tooltipEvent="focus"  [pTooltip]="formErrors.periodo" tooltipEvent="focus" [style]="markField('periodo')">   
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+
+      <div class="p-field" class="panel-inferior">
+            <button *ngIf="isEmpty(agendamientoTarget)" id="vaciar" type="button" label="Vaciar" pButton (click)="resetForm()"></button>
+            <button id="enviar" type="submit" label="Enviar" icon="fas fa-save" pButton></button>
+      </div>
+    
+    </form>
+    </div>

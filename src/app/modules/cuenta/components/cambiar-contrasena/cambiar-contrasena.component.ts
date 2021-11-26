@@ -39,6 +39,7 @@ export class CambiarContrasenaComponent implements OnInit {
       }
         this.formErrors.rep_new_pass = this.validRep()?this.sysMsg.getFormMessages(this.formCC.get('rep_new_pass')?.errors):"La contrasena repetida no es igual a la original!";
     
+        this.focusFieldError();
     }
 
 
@@ -52,7 +53,7 @@ export class CambiarContrasenaComponent implements OnInit {
     
       const value = this.formCC.value;
       delete value.rep_new_pass;
-      value.login = this.authServ.getLogin();
+      value.login = this.authServ.userLogin;
       value.fecha_alteracion = new Date();
     
       if(this.formCC.valid && this.validRep()){
@@ -99,7 +100,14 @@ export class CambiarContrasenaComponent implements OnInit {
     }
     
     
-    
+    focusFieldError(){
+      for(let e in this.formErrors){
+        if(this.formErrors[e]!=''){
+          document.getElementById(e)?.focus();
+          break;
+        }
+      }
+    }
     
     
     focusField(field:string){

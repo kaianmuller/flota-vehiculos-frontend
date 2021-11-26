@@ -21,5 +21,16 @@ export default class Utils{
       return true;
     }
 
+
+    static getDate(date?:any){
+      if(date){
+        let fecha = new Date(date);
+        return new Date(fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset()));
+      }else{
+        let fecha = new Date();
+      return  new Date(new Date(fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset())).setHours(0,0,0,0));
+      }
+    }
+
     
   }

@@ -2,9 +2,9 @@
     <form [formGroup]="formCC" (ngSubmit)="submit($event)" (keydown.enter)="$event.preventDefault()">
     <div class="panel">
         <label>Cambiar Contraseña</label>
-        <input id="act-pass-input" formControlName="act_pass" type="password" pInputText placeholder="Contraseña actual" [pTooltip]="formErrors.act_pass" [ngStyle]="markField('act_pass')">
-        <input id="new-pass-input" formControlName="new_pass" type="password" pInputText placeholder="Nueva contraseña" [pTooltip]="formErrors.new_pass" [ngStyle]="markField('new_pass')">
-        <input id="rep-new-pass-input" formControlName="rep_new_pass" type="password" pInputText placeholder="Repetir nueva contraseña" [pTooltip]="formErrors.rep_new_pass" [ngStyle]="markField('rep_new_pass')">
+        <input id="act_pass" formControlName="act_pass" type="password" pInputText placeholder="Contraseña actual" [pTooltip]="formErrors.act_pass" tooltipEvent="focus" [ngStyle]="markField('act_pass')">
+        <input id="new_pass" formControlName="new_pass" type="password" pInputText placeholder="Nueva contraseña" [pTooltip]="formErrors.new_pass" tooltipEvent="focus" [ngStyle]="markField('new_pass')">
+        <input id="rep_new_pass" formControlName="rep_new_pass" type="password" pInputText placeholder="Repetir nueva contraseña" [pTooltip]="formErrors.rep_new_pass" tooltipEvent="focus" [ngStyle]="markField('rep_new_pass')">
         <button id="cambiar-button" type="submit" pButton label="Enviar"></button>
     </div>
     </form>

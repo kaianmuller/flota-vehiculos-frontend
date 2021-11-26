@@ -5,7 +5,7 @@
     <div *ngIf="edit==false">
         <label>Nuevo</label>
         <div>
-            <input id="new-input" formControlName="descripcion" type="text" pInputText placeholder="Descripcion" [ngStyle]="markField('descripcion')" [pTooltip]="formErrors.descripcion">
+            <input id="new-input" formControlName="descripcion" type="text" pInputText placeholder="Descripcion" [ngStyle]="markField('descripcion')" [pTooltip]="formErrors.descripcion" tooltipEvent="focus">
         </div>
         <button class="save-button" pButton icon="fas fa-save"></button>
         <button class="cancel-button" pButton icon="far fa-window-close" (click)="edit=null;resetForm()"></button>
@@ -13,7 +13,7 @@
     <div *ngIf="edit==true">
         <label>Editar</label>
         <div>
-            <input id="edit-input" formControlName="descripcion" type="text" pInputText placeholder="Descripcion" [ngStyle]="markField('descripcion')" [pTooltip]="formErrors.descripcion">
+            <input id="edit-input" formControlName="descripcion" type="text" pInputText placeholder="Descripcion" [ngStyle]="markField('descripcion')" [pTooltip]="formErrors.descripcion" tooltipEvent="focus">
         </div>
         <button class="save-button" pButton icon="fas fa-save"></button>
         <button class="cancel-button" pButton icon="far fa-window-close" (click)="edit=null;resetForm()"></button>
@@ -21,7 +21,7 @@
     <div *ngIf="edit==null">
         <div>
             <button class="add-button" pButton icon="fas fa-plus" (click)="edit=false;resetValidate()"></button>
-            <select (change)="selectItem($event)" [ngStyle]="markField('descripcion')"  [pTooltip]="formErrors.descripcion">
+            <select id="select-input" (change)="selectItem($event)" [ngStyle]="markField('descripcion')"  [pTooltip]="formErrors.descripcion" tooltipEvent="focus">
                 <option value="" selected>Elegir...</option>
                 <option *ngFor="let i of items" [value]="i.id">{{i.descripcion}}</option>
             </select>

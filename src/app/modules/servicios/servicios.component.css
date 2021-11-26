@@ -44,6 +44,12 @@
         background-color: gold;
         color:rgb(31, 31, 31);
        }
+
+    .panel-info{
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+    }
     
     
    .opciones{

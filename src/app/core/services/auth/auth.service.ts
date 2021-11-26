@@ -8,17 +8,18 @@ import Utils from 'src/app/shared/utils/Utils';
 
 
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-
+userLogin:any = null;
 
   constructor(private router:Router,private http:HttpClient) { 
-
+    
   }
-
 
 
   async login(login:Login){
@@ -33,7 +34,6 @@ export class AuthService {
 async verifyToken(token:string){
   this.http.post(Utils.ip()+"/auth/check",{jwt:token}).subscribe(
     (result:any)=>{
-      localStorage.setItem('login',result.login);
       localStorage.setItem('expire',result.exp);
       this.router.navigate(['/home']);
     }
@@ -41,11 +41,15 @@ async verifyToken(token:string){
 }
 
 
+getInfo(){
+   return this.http.post(Utils.ip()+"/auth/check",{jwt:this.getToken()});
+}
+
+
 
   logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('expire');
-    localStorage.removeItem('login');
     this.router.navigate(['/login']);
   }
 
@@ -57,9 +61,6 @@ async verifyToken(token:string){
     return localStorage.getItem('expire');
   }
 
-  getLogin(){
-    return localStorage.getItem('login');
-  }
 
 isLogged():boolean{
 

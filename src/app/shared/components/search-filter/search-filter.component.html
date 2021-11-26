@@ -3,13 +3,13 @@
     <div class="p-field">
         <div class="field-out">
             <div class="p-field">
-            <span *ngIf="itemTarget" class="p-input-icon-right">
-                    <i  [class]="itemTarget?'fas fa-times':''" (click)="itemTarget = null;sendItem(null);inputSearchText=''"></i>
-                    <input id="select-input" type="text" [value]="itemTarget[selectHeader[0]]"  [style]="itemTarget?{'background-color':'lightgreen'}:{}" pInputText   pTooltip="Eliminar" readonly>    
-            </span>
             <span *ngIf="!itemTarget" class="p-input-icon-right">
             <i  [class]="inputSearchText?'fas fa-times':''" (click)="inputSearchText = '';setQuerySearch();sendQuery()"></i>
-            <input id="search-input" type="text" [value]="inputSearchText" pInputText (blur)="!inTable?showTable=false:true" (keyup.enter)="items.length == 1?sendItem(items[0]):true" (keyup.escape)="showTable=false;inputSearchText=''"  (keyup)="setInputSearchText($event)" pTooltip="Buscar" autocomplete="off">    
+            <input class="search-input" id="search-input-{{idSearch}}" type="text" [value]="inputSearchText" pInputText (blur)="!inTable?showTable=false:true" (keyup.enter)="items.length == 1?sendItem(items[0]):true" (keyup.escape)="showTable=false;inputSearchText=''"  (keyup)="setInputSearchText($event)" [style]="markField()" [pTooltip]="validate?validate:'Buscar'" tooltipEvent="focus" autocomplete="off">    
+            </span>
+            <span *ngIf="itemTarget" class="p-input-icon-right">
+                <i  [class]="itemTarget?'fas fa-times':''" (click)="clearSelectInput()"></i>
+                <input id="select-input" type="text" [value]="itemTarget[selectHeader[0]]"  [style]="itemTarget?{'background-color':'lightgreen'}:{}" pInputText   pTooltip="Eliminar" readonly>    
             </span>
             <div class="table" *ngIf="select && showTable && inputSearchText && selectHeader" (mouseenter)="inTable = true" (mouseleave)="inTable = false">
                 <p-table #table [value]="items" [scrollable]="true" scrollHeight="200px">
@@ -36,30 +36,30 @@
                 </div>
                 <div *ngFor="let e of enums">
                     <div class="panel-field" #enum>
-                        <label>{{firstUpperCase(e.key)}}: </label>
-                        <select (change)="setQueryEnum($event,e.key)">
+                        <label>{{firstUpperCase(e.alias?e.alias+' > '+e.target:e.key)}}: </label>
+                        <select (change)="setQueryEnum($event,!e.alias?e.key:null,e.alias?e.target:null)">
                             <option value="">select</option>
-                            <option *ngFor="let k of e.entries.keys;index as i" [value]="e.entries.values[i]" [selected]="e.entries.values[i] == queryFilter[e.key].value">{{e.entries.keys[i]}}</option>
+                            <option *ngFor="let k of e.entries.keys;index as i" [value]="e.entries.values[i]" [selected]="e.alias?e.entries.values[i] == queryFilter.alias[e.target].target.value:e.entries.values[i] == queryFilter[e.alias?e.target:e.key].value">{{e.entries.keys[i]}}</option>
                         </select>
                     </div>
                 </div>
                 <div *ngFor="let n of numbers">
                     <div class="panel-field">
-                        <label>{{firstUpperCase(n.key)}}: </label>
-                        <input class="small-number" type="number" [value]="queryFilter[n.key].min" placeholder="min" (blur)="setQueryNumberMin($event,n.key)">
-                        <input class="small-number" type="number" [value]="queryFilter[n.key].max" placeholder="max" (blur)="setQueryNumberMax($event,n.key)">
+                        <label>{{firstUpperCase(n.alias?n.alias+' > '+n.target:n.key)}}: </label>
+                        <input class="small-number" type="number" [value]="n.alias?queryFilter.alias[n.target].target.min:queryFilter[n.key].min" placeholder="min" (blur)="setQueryNumberMin($event,!n.alias?n.key:null,n.alias?n.target:null)">
+                        <input class="small-number" type="number" [value]="n.alias?queryFilter.alias[n.target].target.max:queryFilter[n.key].max" placeholder="max" (blur)="setQueryNumberMax($event,!n.alias?n.key:null,n.alias?n.target:null)">
                     </div>
                 </div>
                 <div *ngFor="let d of dates">
                     <div class="panel-field">
-                        <label>{{firstUpperCase(d.key)}}: </label>
+                        <label>{{firstUpperCase(d.alias?d.alias+' > '+d.target:d.key)}}: </label>
                         <div class="small-date">
                             <label>Desde:</label>
-                            <input type="date" [value]="queryFilter[d.key].from" (blur)="setQueryDateFrom($event,d.key)">
+                            <input type="date" [value]="queryFilter[d.alias?d.target:d.key].from" (blur)="setQueryDateFrom($event,!d.alias?d.key:null,d.alias?d.target:null)">
                         </div>
                         <div class="small-date">
                             <label>Hasta:</label>
-                            <input type="date" [value]="queryFilter[d.key].to" (blur)="setQueryDateTo($event,d.key)">
+                            <input type="date" [value]="queryFilter[d.alias?d.target:d.key].to" (blur)="setQueryDateTo($event,!d.alias?d.key:null,d.alias?d.target:null)">
                         </div>
                     </div>
                 </div>

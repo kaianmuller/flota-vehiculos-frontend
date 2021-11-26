@@ -14,14 +14,13 @@
             <tr>
                 <th>Descripcion</th>
                 <th>Estado</th>
-                <th>Auto</th>
+                <th>Auto chapa</th>
+                <th>Auto Modelo</th>
                 <th>Usuario</th>
                 <th>Fecha Inicio</th>
                 <th>Kilometraje Inicial</th>
                 <th>Fecha Fin</th>
                 <th>Kilometraje Final</th>
-                <th>Fecha Alter.</th>
-                <th>Fecha Creac.</th>
                 <th>Más info.</th>
                 <th><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
@@ -30,12 +29,13 @@
             <tr>
                 <td><p>{{item.descripcion}}</p></td>
                 <td>{{item.estado}}</td>
+                <td>{{item.auto.chapa}}</td>
+                <td>{{item.auto.modelo}}</td>
+                <td>{{item.usuario.login}}</td>
                 <td>{{item.fecha_inicio}}</td>
                 <td>{{formatN.format(item.km_inicial) + ' KM'}}</td>
                 <td>{{item.fecha_fin}}</td>
                 <td>{{formatN.format(item.km_final) + ' KM'}}</td>
-                <td>{{item.fecha_alteracion | date:'dd/MM/YY'}}</td>
-                <td>{{item.fecha_creacion | date:'dd/MM/YY'}}</td>
                 <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>
                 <td>
                     <div class="opciones">
@@ -57,10 +57,9 @@
 
 <p-dialog header="Informacion adicional" [(visible)]="dispInfo" [modal]="true">
     <div class="panel-info">
-            <label><b>Chassis:</b> </label>
-            <label><b>Año del modelo:</b> </label>
-            <label><b>Año de fabricacion:</b> </label>
-    </div>
+        <label><b>Fecha Alteracion:</b> {{itemTarget.fecha_alteracion | date:'dd/MM/YY'}}</label>
+        <label><b>Fecha creacion:</b> {{itemTarget.fecha_creacion | date:'dd/MM/YY'}}</label>
+</div>
 </p-dialog>
 
 

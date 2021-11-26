@@ -6,6 +6,7 @@ import { TipoUsuario } from 'src/app/shared/enums/tipo-usuario.enum';
 import { Usuario } from 'src/app/shared/models/Usuario.model';
 import Utils from 'src/app/shared/utils/Utils';
 
+
 @Component({
   selector: 'app-usuario-card',
   templateUrl: './usuario-card.component.html',

@@ -1,0 +1,107 @@
+.panel{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.panel-superior{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.p-field{
+    width: 100%;
+    margin: 5px;
+}
+
+
+.time{
+    margin: 5px;
+    margin-top: 10px;
+    padding: 3px;
+    background-color: aliceblue;
+    border-radius: 3px;
+}
+
+
+#fecha_objetivo{
+    width: 200px;
+    height: 40px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 5px;
+    color:black;
+    font-size: 18px;
+}
+
+
+#descripcion{
+    width: 98%;
+    height: 128px;
+    font-size: small;
+    resize: none;
+}
+
+
+
+#periodo{
+    width: 180px;
+    height: 40px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 5px;
+    color:black;
+    font-size: 18px;
+}
+
+
+input{
+    width: 260px;
+}
+
+
+.panel-inferior{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#enviar{
+    margin-left: auto;
+}
+
+#vaciar{
+    margin-right: auto;
+    background-color: white;
+    color: black;
+}
+
+button{
+    margin-top: 10px;
+    width: 100px;
+    height: 50px; 
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+width: 25px;
+height: 25px;
+}
+
+
+
+select{
+    width: 260px;
+    height: 40px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    font-size: 14px;
+    color:black;
+    text-align: center;
+}

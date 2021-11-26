@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Paginator } from 'primeng/paginator';
 import { Table, TableBody } from 'primeng/table';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UsuariosService } from 'src/app/core/services/usuarios/usuarios.service';
 import { TipoUsuario } from 'src/app/shared/enums/tipo-usuario.enum';
 import { Usuario } from 'src/app/shared/models/Usuario.model';
@@ -24,7 +25,7 @@ export class UsuariosComponent implements OnInit {
       @ViewChild('pag') pag!:Paginator;
   
       dispForm: boolean = false;
-  
+      dispInfo:boolean = false;
   
       searchConfig:{[key:string]:any} = {
         login: 'string',
@@ -38,7 +39,6 @@ export class UsuariosComponent implements OnInit {
       queryItems:{[key:string]:any} = {};
   
       constructor(private usuarioServ:UsuariosService) {
-       
       }
   
       ngOnInit() {
@@ -62,6 +62,12 @@ export class UsuariosComponent implements OnInit {
         this.getItems();
     }
   
+
+
+    showInfo(item:Usuario){
+      this.itemTarget = item;
+      this.dispInfo = true;
+      }
   
   
       editItem(item:Usuario){

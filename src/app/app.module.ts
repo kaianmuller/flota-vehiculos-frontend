@@ -17,6 +17,7 @@ import { ConfiguracionesModule } from './modules/configuraciones/configuraciones
 import { CuentaModule } from './modules/cuenta/cuenta.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
+import { AgendamientosModule } from './modules/agendamientos/agendamientos.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SharedModule } from './shared/shared.module';
     UsuariosModule,
     ConfiguracionesModule,
     CuentaModule,
-    SharedModule
+    SharedModule,
+    AgendamientosModule
   ],
   providers: [
     {

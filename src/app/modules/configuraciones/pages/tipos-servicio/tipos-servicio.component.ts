@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { TiposServicioService } from 'src/app/core/services/tipos-servicio/tipos-servicio.service';
 import { TipoServicio } from 'src/app/shared/models/TipoServicio.model';
+import Utils from 'src/app/shared/utils/Utils';
 
 @Component({
   selector: 'app-tipos-servicio',
@@ -20,6 +21,7 @@ export class TiposServicioComponent implements OnInit {
   formTS = new FormGroup({});
   formErrors:{[key:string]:string} = {};
   
+  loadDescIcon = false;
 
   constructor(private tipServ:TiposServicioService,private sysMsg:SystemMessagesService) { }
 
@@ -33,7 +35,7 @@ export class TiposServicioComponent implements OnInit {
   buildForm(){
     this.formTS = new FormGroup({
       id: new FormControl(this.itemTarget.id),
-      descripcion: new FormControl(this.itemTarget.descripcion,[Validators.required]),
+      descripcion: new FormControl(this.itemTarget.descripcion,[Validators.required],[this.exist.bind(this)]),
     });
 
 
@@ -55,6 +57,9 @@ export class TiposServicioComponent implements OnInit {
       if((this.edit == null || this.edit == true) && !this.itemTarget.id){
         this.formErrors['descripcion'] = "- Debes seleccionar un elemento!";
       }
+
+
+      this.focusFieldError();
       
     }
   
@@ -169,6 +174,35 @@ export class TiposServicioComponent implements OnInit {
 
 
 
+
+    focusFieldError(){
+      for(let e in this.formErrors){
+        if(this.formErrors[e]!=''){
+          if(this.edit == null){
+          document.getElementById('select-input')?.focus();
+          }else if(this.edit == true){
+          document.getElementById('edit-input')?.focus();  
+          }else if(this.edit == false){
+            document.getElementById('new-input')?.focus();  
+            }
+            
+          break;
+        }
+      }
+    }
+
+
+    async exist(control: AbstractControl) {
+      this.loadDescIcon = true;
+      return this.tipServ.existTipoByDescripcion(control.value).then((value) => {
+        this.loadDescIcon = false;
+        if(value && Utils.isEmpty(this.itemTarget)){
+          return {'existe':true};
+        }else{
+          return null;
+        }
+       });
+    }
 
 
 
