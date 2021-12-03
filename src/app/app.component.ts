@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from './core/services/auth/auth.service';
+import { SystemMessagesService } from './core/services/system-messages/system-messages.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +13,10 @@ export class AppComponent {
   title = 'flota-vehiculos-frontend';
 
 
-  constructor(private authServ:AuthService,private router:Router){
-  this.authServ.getInfo().subscribe((result:any)=>{
-      this.authServ.userLogin = result.login;
-  });
+  dispLogin:boolean = false;
+
+  constructor(private authServ:AuthService,private router:Router,private messageService: MessageService,private sysMsg:SystemMessagesService){
+    this.authServ.verifyToken();
   }
 
 
@@ -22,12 +24,14 @@ export class AppComponent {
   }
 
   isLogged():boolean{
-   const stat = this.authServ.isLogged();
+  this.dispLogin = (!this.authServ.isLogged() && window.location.pathname != '/login');
+   return this.authServ.isLogged();
+  }
 
-   if(!stat && this.router.url != '/login'){
-    this.router.navigate(['/login']);
-   }
 
-   return stat;
+
+
+  showLoginFailMessage(error:any){
+    this.messageService.add(this.sysMsg.getSystemMessage(error.status));
   }
 }

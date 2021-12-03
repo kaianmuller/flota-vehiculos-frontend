@@ -11,12 +11,16 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {CalendarModule} from 'primeng/calendar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
+import { LoginCardComponent } from './components/login-card/login-card.component';
+import { MoreInfoCardComponent } from './components/more-info-card/more-info-card.component';
 
 
 @NgModule({
   declarations: [
     SearchFilterComponent,
     MainMenuComponent,
+    LoginCardComponent,
+    MoreInfoCardComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,9 @@ import { TableModule } from 'primeng/table';
   ],
   exports:[
     MainMenuComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
+    LoginCardComponent,
+    MoreInfoCardComponent
   ]
 })
 export class SharedModule { }

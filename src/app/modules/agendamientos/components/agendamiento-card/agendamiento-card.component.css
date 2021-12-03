@@ -14,10 +14,11 @@
 .p-field{
     width: 100%;
     margin: 5px;
+    margin-top: 10px;
 }
 
 
-.time{
+.panel-time{
     margin: 5px;
     margin-top: 10px;
     padding: 3px;
@@ -33,7 +34,6 @@
     outline: none;
     border-radius: 3px;
     text-align: center;
-    margin-left: 5px;
     color:black;
     font-size: 18px;
 }
@@ -41,7 +41,7 @@
 
 #descripcion{
     width: 98%;
-    height: 128px;
+    height: 133px;
     font-size: small;
     resize: none;
 }
@@ -55,7 +55,6 @@
     outline: none;
     border-radius: 3px;
     text-align: center;
-    margin-left: 5px;
     color:black;
     font-size: 18px;
 }

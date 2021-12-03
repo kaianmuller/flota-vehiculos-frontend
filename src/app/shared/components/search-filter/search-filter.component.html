@@ -15,7 +15,7 @@
                 <p-table #table [value]="items" [scrollable]="true" scrollHeight="200px">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th [style]="{'max-width':maxWidthRow,'max-height':maxHeightRow,'padding-right':'5px'}" *ngFor="let h of selectHeader">{{firstUpperCase(h)}}</th>
+                        <th [style]="{'max-width':maxWidthRow,'max-height':maxHeightRow,'padding-right':'5px'}" *ngFor="let h of selectHeader">{{convertLabel(h)}}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
@@ -36,7 +36,7 @@
                 </div>
                 <div *ngFor="let e of enums">
                     <div class="panel-field" #enum>
-                        <label>{{firstUpperCase(e.alias?e.alias+' > '+e.target:e.key)}}: </label>
+                        <label>{{convertLabel(e.alias?e.alias+' > '+e.target:e.key)}}: </label>
                         <select (change)="setQueryEnum($event,!e.alias?e.key:null,e.alias?e.target:null)">
                             <option value="">select</option>
                             <option *ngFor="let k of e.entries.keys;index as i" [value]="e.entries.values[i]" [selected]="e.alias?e.entries.values[i] == queryFilter.alias[e.target].target.value:e.entries.values[i] == queryFilter[e.alias?e.target:e.key].value">{{e.entries.keys[i]}}</option>
@@ -45,14 +45,14 @@
                 </div>
                 <div *ngFor="let n of numbers">
                     <div class="panel-field">
-                        <label>{{firstUpperCase(n.alias?n.alias+' > '+n.target:n.key)}}: </label>
+                        <label>{{convertLabel(n.alias?n.alias+' > '+n.target:n.key)}}: </label>
                         <input class="small-number" type="number" [value]="n.alias?queryFilter.alias[n.target].target.min:queryFilter[n.key].min" placeholder="min" (blur)="setQueryNumberMin($event,!n.alias?n.key:null,n.alias?n.target:null)">
                         <input class="small-number" type="number" [value]="n.alias?queryFilter.alias[n.target].target.max:queryFilter[n.key].max" placeholder="max" (blur)="setQueryNumberMax($event,!n.alias?n.key:null,n.alias?n.target:null)">
                     </div>
                 </div>
                 <div *ngFor="let d of dates">
                     <div class="panel-field">
-                        <label>{{firstUpperCase(d.alias?d.alias+' > '+d.target:d.key)}}: </label>
+                        <label>{{convertLabel(d.alias?d.alias+' > '+d.target:d.key)}}: </label>
                         <div class="small-date">
                             <label>Desde:</label>
                             <input type="date" [value]="queryFilter[d.alias?d.target:d.key].from" (blur)="setQueryDateFrom($event,!d.alias?d.key:null,d.alias?d.target:null)">

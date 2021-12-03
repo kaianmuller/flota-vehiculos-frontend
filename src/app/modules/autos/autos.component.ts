@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { AutosService } from 'src/app/core/services/autos/autos.service';
+import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { DisponibilidadAuto } from 'src/app/shared/enums/disponibilidad-auto.enum';
 import { Auto } from 'src/app/shared/models/Auto.model';
 import Utils from 'src/app/shared/utils/Utils';
@@ -44,7 +47,7 @@ export class AutosComponent implements OnInit {
 
     queryItems:{[key:string]:any} = {};
 
-    constructor(private autoServ:AutosService) {
+    constructor(private autoServ:AutosService,private authServ:AuthService,private confirmationService: ConfirmationService,private sysMsg:SystemMessagesService) {
      
     }
 
@@ -88,14 +91,22 @@ export class AutosComponent implements OnInit {
 
       if(item.id)
       {
-      item.fecha_alteracion = new Date();
       this.autoServ.editOne(item,item.id).then(result=>{console.log("item Editado!");this.dispForm = false;this.getItems()});
       }else
       {
-      item.fecha_creacion = new Date();
       this.autoServ.createOne(item).then(result=>{console.log("item Creado!");this.getItems()});
       }
 
+    }
+
+
+    confirm(type:string,ref:string,item:any) {
+      this.confirmationService.confirm({
+          message: this.sysMsg.getDialogMessages(type,item[ref]),
+          accept: () => {
+            this.deleteItem(item.id);   
+          }
+      });
     }
 
     deleteItem(id:number){
@@ -119,6 +130,8 @@ export class AutosComponent implements OnInit {
     }
 
 
-
+    isAdmin(){
+      return this.authServ.isAdmin();
+    }
 
 }

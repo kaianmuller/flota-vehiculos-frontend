@@ -1,3 +1,18 @@
-<div class="bar"><img src="assets/img/logo-datapar_white-transparent.png"><label *ngIf="isLogged()">FLOTA DE VEHICULOS</label></div>
+<div class="bar"><label *ngIf="isLogged()">FLOTA DE VEHICULOS</label></div>
 <app-main-menu *ngIf="isLogged()" ></app-main-menu>
 <router-outlet></router-outlet>
+
+
+<div id="water-mark">
+    <img src="../assets/img/logo-datapar-gray.png">
+</div>
+
+
+
+
+
+<p-toast [baseZIndex]="1" position="top-right"></p-toast>
+
+<p-dialog id="panel-login" header="Autenticacion!" [(visible)]="dispLogin" [closeOnEscape]="false" [modal]="true" [closable]="false">
+    <app-login-card *ngIf="dispLogin" (sendFailLoginError)="showLoginFailMessage($event)"></app-login-card>
+</p-dialog>

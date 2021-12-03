@@ -14,6 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     InputTextModule,
     InputTextareaModule,
     InputNumberModule,
-    SharedModule
-  ]
+    SharedModule,
+    ConfirmDialogModule,
+  ],
+  providers:[ConfirmationService]
 })
 export class ServiciosModule { }

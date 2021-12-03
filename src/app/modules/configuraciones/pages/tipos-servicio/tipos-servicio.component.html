@@ -26,9 +26,14 @@
                 <option *ngFor="let i of items" [value]="i.id">{{i.descripcion}}</option>
             </select>
             <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem();resetValidate()"></button>
-            <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem()"></button>
+            <button class="del-button" pButton icon="fas fa-trash-alt" (click)="confirm('delete','descripcion',itemTarget)"></button>
         </div>
     </div>
 </form>
 </div>
+
+
+
+<p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
 

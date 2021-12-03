@@ -5,7 +5,7 @@
 
 <div class="panel-out">
         <div class="logo">
-            <img src="assets/img/car-logo-1.png">
+            <img src="../../../assets/img/cars-logo-green.png">
             <label>FLOTA DE VEHICULOS</label>
         </div>
         <div class="panel-in">
@@ -19,11 +19,5 @@
                 <input id="pass-input" type="password" [value]="login.contrasena" (blur)="login.contrasena = getValue($event)" (keyup.enter)="login.contrasena = getValue($event);entrar()" placeholder="Password">      
             </div>
             <button pButton (click)="entrar()" label="Entrar"></button>
-            <label class="register-button" (click)="dispReg = true" >Registrarse</label>
         </div>
 </div>
-
-
-<p-dialog header="Registro" [(visible)]="dispReg" [modal]="true">
-    <app-register *ngIf="dispReg"></app-register>
-</p-dialog>

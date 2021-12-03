@@ -12,6 +12,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -31,7 +33,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SelectButtonModule,
     InputTextModule,
     InputTextareaModule,
-    SharedModule
-  ]
+    SharedModule,
+    ConfirmDialogModule,
+  ],
+  providers:[ConfirmationService]
 })
 export class AgendamientosModule { }

@@ -313,8 +313,8 @@ getItems(){
   }
 
 
-  firstUpperCase(word:string) {
-  return  Utils.firstUpperCase(word);
+  convertLabel(word:string) {
+  return  Utils.toLabel(Utils.firstUpperCase(word));
   }
 
 

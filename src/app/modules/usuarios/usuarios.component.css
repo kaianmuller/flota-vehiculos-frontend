@@ -27,17 +27,18 @@
 
     .new-button{
         width: 60px !important;
+        margin-left: 5px;
     }
 
     .search{
         margin-left: auto;
-        margin-right: 10px;
+        margin-right: 4px;
     }
 
     .table{
-        margin-left: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
-
 
 
     .info-button{
@@ -60,14 +61,6 @@
     background-color: red;
     color:rgb(31, 31, 31);
     margin-left: 3px; 
-   }
-
-
-
-   .panel-info{
-       width: 300px;
-       display: flex;
-       flex-direction: column;
    }
 
    .panel-info label{

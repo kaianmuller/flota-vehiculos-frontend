@@ -1,4 +1,7 @@
 <p-menubar [model]="items">
+        <ng-template pTemplate="start">
+        <img src="../../../../assets/img/cars-logo-green.png">
+        </ng-template>
         <button id="profile" pButton icon="fas fa-chevron-down" (click)="menu.toggle($event)" ></button>
         <p-menu #menu [model]="profile_items" [popup]="true"></p-menu>  
 </p-menubar>

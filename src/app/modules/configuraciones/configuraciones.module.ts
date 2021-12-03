@@ -11,10 +11,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { IntegrationApiComponent } from './pages/integration-api/integration-api.component';
+import { ConfigOverviewComponent } from './pages/config-overview/config-overview.component';
 @NgModule({
   declarations: [
     TiposServicioComponent,
-    ConfiguracionesComponent
+    ConfiguracionesComponent,
+    IntegrationApiComponent,
+    ConfigOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -23,8 +29,9 @@ import { TooltipModule } from 'primeng/tooltip';
     MenuModule,
     InputTextModule,
     ButtonModule,
-    TooltipModule
-    
-  ]
+    TooltipModule,
+    ConfirmDialogModule,
+  ],
+  providers:[ConfirmationService]
 })
 export class ConfiguracionesModule { }

@@ -5,12 +5,12 @@
         <div class="panel-left">
             <div class="p-field">
                 <label>Auto</label>
-                <app-search-filter [idSearch]="'auto'" #auto [select]="true" [condition]="{disponibilidad:{value:'DISPONIBLE'}}" [selectHeader]="['chapa','modelo','disponibilidad']" (item)="setFormControlValue('auto',$event)" [selectService]="autoServ" [config]="autoSearchConfig" [validate]="formErrors.auto" [setItemTarget]="this.agendamientoTarget.auto"></app-search-filter>
+                <app-search-filter [idSearch]="'auto'" #auto [select]="true" [condition]="{disponibilidad:{value:'DISPONIBLE'}}" [selectHeader]="['chapa','modelo','disponibilidad']" (item)="setFormControlValue('auto',$event)" [selectService]="autoServ" [config]="autoSearchConfig" [validate]="formErrors.auto" [setItemTarget]="agendamientoTarget.auto"></app-search-filter>
             </div>
 
             <div class="p-field">
                 <label>Usuario</label>
-                    <app-search-filter [idSearch]="'usuario'" #usuario [select]="true" [selectHeader]="['login','nombre','tipo_usuario']" (item)="setFormControlValue('usuario',$event)" [selectService]="usuarioServ" [config]="usuarioSearchConfig" [validate]="formErrors.usuario" [setItemTarget]="this.agendamientoTarget.usuario"></app-search-filter>
+                    <app-search-filter [idSearch]="'usuario'" #usuario [select]="true" [selectHeader]="['login','nombre','tipo_usuario']" (item)="setFormControlValue('usuario',$event)" [selectService]="usuarioServ" [config]="usuarioSearchConfig" [validate]="formErrors.usuario" [setItemTarget]="agendamientoTarget.usuario"></app-search-filter>
             </div>
 
             <div class="p-field">
@@ -33,7 +33,7 @@
             </div>
             </div>
 
-            <div class="time">
+            <div class="panel-time">
                 <div class="p-field">
                     <label>Tipo</label>
                     <div class="field-out">

@@ -21,8 +21,8 @@ dispReg:boolean = false;
 
   ngOnInit(): void {
     this.isLogged();
+    this.resetFields();
     this.focusUserInput();
-
   }
 
 getValue(event:any){

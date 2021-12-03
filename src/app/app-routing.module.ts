@@ -5,6 +5,8 @@ import { AgendamientosComponent } from './modules/agendamientos/agendamientos.co
 import { AutosComponent } from './modules/autos/autos.component';
 import { ConfiguracionesComponent } from './modules/configuraciones/configuraciones.component';
 import { ConfiguracionesModule } from './modules/configuraciones/configuraciones.module';
+import { ConfigOverviewComponent } from './modules/configuraciones/pages/config-overview/config-overview.component';
+import { IntegrationApiComponent } from './modules/configuraciones/pages/integration-api/integration-api.component';
 import { TiposServicioComponent } from './modules/configuraciones/pages/tipos-servicio/tipos-servicio.component';
 import { CuentaComponent } from './modules/cuenta/cuenta.component';
 import { HomeComponent } from './modules/home/home.component';
@@ -23,8 +25,10 @@ const routes: Routes = [
   { path: 'cuenta', component: CuentaComponent ,canActivate:[AuthGuard]},
   { path: 'configuraciones', component: ConfiguracionesComponent ,canActivate:[AuthGuard],
       children:[
-        { path: '',redirectTo:'tipos_servicio',pathMatch: 'full'},
-        { path: 'tipos_servicio', component: TiposServicioComponent,canActivate:[AuthGuard]}
+        { path: '',redirectTo:'overview',pathMatch: 'full'},
+        { path: 'overview', component: ConfigOverviewComponent,canActivate:[AuthGuard]},
+        { path: 'tipos_servicio', component: TiposServicioComponent,canActivate:[AuthGuard]},
+        { path: 'integration_api', component: IntegrationApiComponent,canActivate:[AuthGuard]}
       ]},
 ];
 

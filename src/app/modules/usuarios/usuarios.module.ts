@@ -15,6 +15,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
 @NgModule({
   declarations: [
     UsuariosComponent,
@@ -31,7 +34,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SelectButtonModule,
     InputTextModule,
     InputTextareaModule,
-    SharedModule
-  ]
+    SharedModule,
+    ConfirmDialogModule,
+  ],
+  providers:[ConfirmationService]
 })
 export class UsuariosModule { }

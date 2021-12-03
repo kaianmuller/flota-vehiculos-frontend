@@ -1,0 +1,46 @@
+
+
+
+
+
+
+.panel-in{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.p-inputgroup{
+    width: 270px;
+    height: 35px;
+    margin-left: 20px;
+    border-radius: 5px;
+    margin-top:5px;
+}
+
+input{
+    width: 210px;
+    outline: none;
+    border: solid 1px lightgray;
+    padding-left: 5px;
+}
+
+input::placeholder{
+    color:gray
+}
+
+
+button{
+    width: 250px;
+    height: 50px;
+    margin: auto;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

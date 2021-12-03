@@ -18,6 +18,8 @@ import { CuentaModule } from './modules/cuenta/cuenta.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
 import { AgendamientosModule } from './modules/agendamientos/agendamientos.module';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { AgendamientosModule } from './modules/agendamientos/agendamientos.modul
     ConfiguracionesModule,
     CuentaModule,
     SharedModule,
-    AgendamientosModule
+    AgendamientosModule,
+    DialogModule,
+    ToastModule,
   ],
   providers: [
     {

@@ -3,7 +3,7 @@
         <label>Lista de servicios</label>
     </div>
     <div class="panel-middle">
-        <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
+        <button *ngIf="isAdmin()" class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
         <div class="search">
             <app-search-filter [config]="searchConfig" (query)="setQueryItems($event)"></app-search-filter>
         </div>
@@ -12,35 +12,35 @@
         <p-table #table [value]="items" [rows]="rows" [showCurrentPageReport]="true" responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>
-                <th>Descripcion</th>
-                <th>Estado</th>
+                <th>Tipo de servicio</th>
                 <th>Auto chapa</th>
                 <th>Auto Modelo</th>
+                <th>Estado</th>
                 <th>Usuario</th>
+                <th>Valor</th>
                 <th>Fecha Inicio</th>
-                <th>Kilometraje Inicial</th>
                 <th>Fecha Fin</th>
-                <th>Kilometraje Final</th>
+                <th>Finalizar</th>
                 <th>Más info.</th>
-                <th><i class="fas fa-wrench"></i> Opciones</th>
+                <th *ngIf="isAdmin()"><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td><p>{{item.descripcion}}</p></td>
-                <td>{{item.estado}}</td>
-                <td>{{item.auto.chapa}}</td>
-                <td>{{item.auto.modelo}}</td>
-                <td>{{item.usuario.login}}</td>
-                <td>{{item.fecha_inicio}}</td>
-                <td>{{formatN.format(item.km_inicial) + ' KM'}}</td>
-                <td>{{item.fecha_fin}}</td>
-                <td>{{formatN.format(item.km_final) + ' KM'}}</td>
+                <td>{{item.tipo_servicio?item.tipo_servicio.descripcion:''}}</td>
+                <td>{{item.auto?item.auto.chapa:''}}</td>
+                <td>{{item.auto?item.auto.modelo:''}}</td>
+                <td><label class="estado" [style]="setStyleBackgroundEstado(item.estado)">{{item.estado}}</label></td>
+                <td>{{item.usuario?item.usuario.login:''}}</td>
+                <td>{{item.valor_servicio}}</td>
+                <td>{{item.fecha_inicio | date:'dd/MM/YY'}}</td>
+                <td>{{item.fecha_fin | date:'dd/MM/YY'}}</td>
+                <td><button *ngIf="isFinalizado(item)" class="action-button" pButton icon="fas fa-flag-checkered" (click)="finalizarServicio(item)"></button></td>
                 <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>
-                <td>
+                <td *ngIf="isAdmin()">
                     <div class="opciones">
                         <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem(item)" ></button>
-                        <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem(item.id)"></button>
+                        <button class="del-button" pButton icon="fas fa-trash-alt" (click)="confirm('delete','',item)"></button>
                     </div>
                 </td>
             </tr>
@@ -56,13 +56,14 @@
 
 
 <p-dialog header="Informacion adicional" [(visible)]="dispInfo" [modal]="true">
-    <div class="panel-info">
-        <label><b>Fecha Alteracion:</b> {{itemTarget.fecha_alteracion | date:'dd/MM/YY'}}</label>
-        <label><b>Fecha creacion:</b> {{itemTarget.fecha_creacion | date:'dd/MM/YY'}}</label>
-</div>
+    <app-more-info-card *ngIf="dispInfo" [showItems]="['descripcion','km_inicial','km_final','fecha_alteracion','fecha_creacion']" [item]="itemTarget"></app-more-info-card>
 </p-dialog>
 
 
-<p-dialog [header]="!isEmpty(itemTarget)?'Editar Servicio':'Nuevo Servicio'" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
-    <app-servicio-card *ngIf="dispForm" [servicioTarget]="itemTarget" (sendServicio)="sendItem($event)"></app-servicio-card>
+<p-dialog [header]="!isEmpty(itemTarget)?finalizarFlag?'Finalizar Servicio':'Editar Servicio':'Nuevo Servicio'"  (onHide)="finalizarFlag = false;getItems()" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
+    <app-servicio-card *ngIf="dispForm" [servicioTarget]="itemTarget" [finalizar]="finalizarFlag" (sendServicio)="sendItem($event)"></app-servicio-card>
 </p-dialog>
+
+
+
+<p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle"></p-confirmDialog>

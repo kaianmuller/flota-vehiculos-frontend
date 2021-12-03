@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { TiposServicioService } from 'src/app/core/services/tipos-servicio/tipos-servicio.service';
 import { TipoServicio } from 'src/app/shared/models/TipoServicio.model';
@@ -23,7 +24,7 @@ export class TiposServicioComponent implements OnInit {
   
   loadDescIcon = false;
 
-  constructor(private tipServ:TiposServicioService,private sysMsg:SystemMessagesService) { }
+  constructor(private tipServ:TiposServicioService,private confirmationService: ConfirmationService,private sysMsg:SystemMessagesService) { }
 
   ngOnInit(): void {
     this.getItems();
@@ -139,7 +140,6 @@ export class TiposServicioComponent implements OnInit {
       
       Object.assign(this.itemTarget,value);
      
-      this.itemTarget.fecha_creacion = new Date();
     
       if(this.formTS.valid){
 
@@ -161,7 +161,14 @@ export class TiposServicioComponent implements OnInit {
 
 
 
-
+    confirm(type:string,ref:string,item:any) {
+      this.confirmationService.confirm({
+          message: this.sysMsg.getDialogMessages(type,item[ref]),
+          accept: () => {
+            this.deleteItem();   
+          }
+      });
+    }
 
 
     deleteItem(){

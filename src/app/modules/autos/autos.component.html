@@ -3,7 +3,7 @@
         <label>Lista de autos</label>
     </div>
     <div class="panel-middle">
-        <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
+        <button *ngIf="isAdmin()" class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
         <div class="search">
             <app-search-filter [config]="searchConfig" (query)="setQueryItems($event)"></app-search-filter>
         </div>
@@ -19,7 +19,7 @@
                 <th>Kilometraje</th>
                 <th>Disponibilidad</th>
                 <th>Más info.</th>
-                <th><i class="fas fa-wrench"></i> Opciones</th>
+                <th *ngIf="isAdmin()"><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -31,10 +31,10 @@
                 <td>{{formatN.format(item.kilometraje) + ' KM'}}</td>
                 <td>{{item.disponibilidad}}</td>
                 <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>
-                <td>
+                <td *ngIf="isAdmin()">
                     <div class="opciones">
                         <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem(item)" ></button>
-                        <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem(item.id)"></button>
+                        <button class="del-button" pButton icon="fas fa-trash-alt" (click)="confirm('delete','chapa',item)"></button>
                     </div>
                 </td>
             </tr>
@@ -48,13 +48,7 @@
 </div>
 
 <p-dialog header="Informacion adicional" [(visible)]="dispInfo" [modal]="true">
-    <div class="panel-info">
-            <label><b>Chassis:</b> {{itemTarget.chassis}}</label>
-            <label><b>Año del modelo:</b> {{itemTarget.ano_modelo}}</label>
-            <label><b>Año de fabricacion:</b> {{itemTarget.ano_fabricacion}}</label>
-            <label><b>Fecha Alteracion:</b> {{itemTarget.fecha_alteracion | date:'dd/MM/YY'}}</label>
-            <label><b>Fecha creacion:</b> {{itemTarget.fecha_creacion | date:'dd/MM/YY'}}</label>
-    </div>
+    <app-more-info-card *ngIf="dispInfo" [showItems]="['chassis','ano_modelo','ano_fabricacion','fecha_alteracion','fecha_creacion']" [item]="itemTarget"></app-more-info-card>
 </p-dialog>
 
 
@@ -62,3 +56,8 @@
 <p-dialog [header]="!isEmpty(itemTarget)?'Editar Auto':'Nuevo Auto'" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
     <app-auto-card *ngIf="dispForm" [autoTarget]="itemTarget" (sendAuto)="sendItem($event)"></app-auto-card>
 </p-dialog>
+
+
+
+
+<p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle"></p-confirmDialog>

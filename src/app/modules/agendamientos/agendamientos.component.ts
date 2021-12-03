@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { AgendamientosService } from 'src/app/core/services/agendamientos/agendamientos.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { DisponibilidadAuto } from 'src/app/shared/enums/disponibilidad-auto.enum';
 import { TipoAgendamiento } from 'src/app/shared/enums/tipo-agendamiento.enum';
 import { TipoPeriodoAgendamiento } from 'src/app/shared/enums/tipo-periodo-agendamiento.enum';
@@ -45,7 +48,7 @@ export class AgendamientosComponent implements OnInit {
 
     queryItems:{[key:string]:any} = {};
 
-    constructor(private agendamientoServ:AgendamientosService) {
+    constructor(private agendamientoServ:AgendamientosService,private authServ:AuthService,private confirmationService: ConfirmationService,private sysMsg:SystemMessagesService) {
      
     }
 
@@ -88,15 +91,25 @@ export class AgendamientosComponent implements OnInit {
     sendItem(item:Agendamiento){
       if(item.id)
       {
-      item.fecha_alteracion = new Date();
       this.agendamientoServ.editOne(item,item.id).then(result=>{console.log("item Editado!");this.dispForm = false;this.getItems()});
       }else
       {
-      item.fecha_creacion = new Date();
       this.agendamientoServ.createOne(item).then(result=>{console.log("item Creado!");this.getItems()});
       }
 
     }
+
+
+
+    confirm(type:string,ref:string,item:any) {
+      this.confirmationService.confirm({
+          message: this.sysMsg.getDialogMessages(type,"Agendamiento: "+item.auto.chapa+" > "+item.tipo_servicio.descripcion),
+          accept: () => {
+            this.deleteItem(item.id);   
+          }
+      });
+    }
+
 
     deleteItem(id:number){
       this.agendamientoServ.deleteOne(id).then(result=>{console.log("item Deletado!");this.getItems()});
@@ -116,6 +129,12 @@ export class AgendamientosComponent implements OnInit {
       this.queryItems = query;
       this.first = 0;
       this.getItems();
+    }
+
+
+
+    isAdmin(){
+      return this.authServ.isAdmin();
     }
 
 }

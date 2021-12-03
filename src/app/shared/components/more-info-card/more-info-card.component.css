@@ -1,0 +1,24 @@
+.panel-info{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+table {  
+    border-collapse: collapse;
+}
+
+
+tr{
+    border: solid 1px lightgray;
+}
+
+td{
+text-align: center;
+padding: 10px;
+border: solid 1px lightgray;
+border-top: none;
+border-bottom: none;
+}

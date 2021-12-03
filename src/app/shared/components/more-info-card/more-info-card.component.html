@@ -1,0 +1,12 @@
+<div class="panel-info">
+    <table>
+        <tr *ngFor="let it of itemInfo">
+            <td><label><b>{{it.name}}:</b></label></td>
+            <td  [style]="it.key == 'fecha_alteracion' || it.key == 'fecha_creacion'?{'background-color':'lightgreen','color':'white'}:{}"
+                 [style]="it.key == 'descripcion'?{'font-size':'11px'}:{}"
+            >
+            <label>{{it.value}}</label>
+        </td>
+        </tr>
+    </table>
+</div>

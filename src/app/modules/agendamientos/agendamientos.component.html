@@ -3,7 +3,7 @@
         <label>Lista de agendamientos</label>
     </div>
     <div class="panel-middle">
-        <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
+        <button *ngIf="isAdmin()" class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
         <div class="search">
             <app-search-filter [config]="searchConfig" (query)="setQueryItems($event)"></app-search-filter>
         </div>
@@ -17,9 +17,12 @@
                 <th>Tipo de servicio</th>
                 <th>Descripcion</th>
                 <th>Usuario</th>
-                <th>Tipo</th>
+                <th>Tipo de agendamiento</th>
+                <th>fecha_objetivo</th>
+                <th>Tipo de periodo</th>
+                <th>Periodo</th>
                 <th>Más info.</th>
-                <th><i class="fas fa-wrench"></i> Opciones</th>
+                <th *ngIf="isAdmin()"><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -30,11 +33,14 @@
                 <td>{{item.descripcion}}</td>
                 <td>{{item.usuario?item.usuario.login:''}}</td>
                 <td>{{item.tipo}}</td>
+                <td>{{item.fecha_objetivo | date:'dd/MM/YY'}}</td>
+                <td>{{item.tipo_periodo}}</td>
+                <td>{{item.periodo}}</td>
                 <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>
-                <td>
+                <td *ngIf="isAdmin()">
                     <div class="opciones">
                         <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem(item)" ></button>
-                        <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem(item.id)"></button>
+                        <button class="del-button" pButton icon="fas fa-trash-alt" (click)="confirm('delete','',item)"></button>
                     </div>
                 </td>
             </tr>
@@ -49,13 +55,7 @@
 
 
 <p-dialog header="Informacion adicional" [(visible)]="dispInfo" [modal]="true">
-    <div class="panel-info">
-        <label *ngIf="itemTarget.tipo == 'FIJO'"><b>Fecha Objetivo:</b> {{itemTarget.fecha_objetivo | date:'dd/MM/YY'}}</label>
-        <label *ngIf="itemTarget.tipo == 'PERIODICO'"><b>Tipo de Periodo:</b> {{itemTarget.tipo_periodo}}</label>
-        <label *ngIf="itemTarget.tipo == 'PERIODICO'"><b>Periodo:</b> {{itemTarget.periodo}}</label>
-        <label><b>Fecha Alteracion:</b> {{itemTarget.fecha_alteracion | date:'dd/MM/YY'}}</label>
-        <label><b>Fecha creacion:</b> {{itemTarget.fecha_creacion | date:'dd/MM/YY'}}</label>
-</div>
+    <app-more-info-card *ngIf="dispInfo" [showItems]="['fecha_alteracion','fecha_creacion']" [item]="itemTarget"></app-more-info-card>
 </p-dialog>
 
 
@@ -63,3 +63,8 @@
 <p-dialog [header]="!isEmpty(itemTarget)?'Editar Agendamiento':'Nuevo Agendamiento'" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
     <app-agendamiento-card *ngIf="dispForm" [agendamientoTarget]="itemTarget" (sendAgendamiento)="sendItem($event)"></app-agendamiento-card>
 </p-dialog>
+
+
+
+
+<p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle"></p-confirmDialog>

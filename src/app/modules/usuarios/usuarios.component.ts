@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table, TableBody } from 'primeng/table';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { UsuariosService } from 'src/app/core/services/usuarios/usuarios.service';
 import { TipoUsuario } from 'src/app/shared/enums/tipo-usuario.enum';
 import { Usuario } from 'src/app/shared/models/Usuario.model';
@@ -38,7 +40,7 @@ export class UsuariosComponent implements OnInit {
   
       queryItems:{[key:string]:any} = {};
   
-      constructor(private usuarioServ:UsuariosService) {
+      constructor(private usuarioServ:UsuariosService,private authServ:AuthService,private confirmationService: ConfirmationService,private sysMsg:SystemMessagesService) {
       }
   
       ngOnInit() {
@@ -75,16 +77,24 @@ export class UsuariosComponent implements OnInit {
         this.dispForm=true;
       }
   
+
+      confirm(type:string,ref:string,item:any) {
+        this.confirmationService.confirm({
+            message: this.sysMsg.getDialogMessages(type,item[ref]),
+            accept: () => {
+              this.deleteItem(item.id);   
+            }
+        });
+      }
+    
   
       sendItem(item:Usuario){
   
         if(item.id)
         {
-        item.fecha_alteracion = new Date();
         this.usuarioServ.editOne(item,item.id).then(result=>{console.log("item Editado!");this.dispForm = false;this.getItems()});
         }else
         {
-        item.fecha_creacion = new Date();
         this.usuarioServ.createOne(item).then(result=>{console.log("item Creado!");this.getItems()});
         }
   
@@ -111,5 +121,10 @@ export class UsuariosComponent implements OnInit {
       }
   
   
+
+      isAdmin(){
+        return this.authServ.isAdmin();
+      }
+
 
 }

@@ -9,6 +9,7 @@ export class SystemMessagesService {
 
 systemMessages = Array<{[key:string]:any}>();
 formMessages = Array<{[key:string]:any}>();
+dialogMessages = Array<{[key:string]:any}>();
 
 
   constructor() {
@@ -29,6 +30,12 @@ formMessages = Array<{[key:string]:any}>();
       {min:'- Este campo requiere un valor superior!'},
     ];
 
+
+    this.dialogMessages = 
+    [
+      {delete:'Realmente deseas eliminar a '},
+    ];
+
   }
 
 
@@ -37,7 +44,7 @@ getFormMessages(validator:any){
       let msgs = '';
   
   if(validator){
-    this.formMessages.map((m)=>{
+    this.formMessages.forEach((m)=>{
       let key = Object.keys(m)[0];
         if(validator.hasOwnProperty(key)){
           msgs += m[key] + "\n";
@@ -51,13 +58,15 @@ getFormMessages(validator:any){
 
 
   getSystemMessage(error:string){
-    if(error){
-      return this.systemMessages.map(function(m) {
-        return m[error];
-    });
-    }
+      let msg = this.systemMessages.find((m)=>Object.keys(m)[0] == error);
+      return msg?msg[error]:{};
+  }
 
-return {};
+
+
+  getDialogMessages(type:string,ref:any){
+      let msg = this.dialogMessages.find((m)=>Object.keys(m)[0] == type);
+      return msg?msg[type] + "("+ref.toString()+")" + "?":"";
 }
 
 

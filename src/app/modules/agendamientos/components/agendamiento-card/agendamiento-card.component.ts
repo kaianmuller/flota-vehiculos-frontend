@@ -57,12 +57,6 @@ export class AgendamientoCardComponent implements OnInit {
     fecha_creacion: 'date',
   };
 
-  tipSearchConfig:{[key:string]:any} = {
-    descripcion: 'string',
-    fecha_alteracion:'date',
-    fecha_creacion: 'date',
-  };
-
 
   @ViewChild('usuario') userChild!:SearchFilterComponent;
   @ViewChild('auto') autoChild!:SearchFilterComponent;
@@ -89,10 +83,10 @@ export class AgendamientoCardComponent implements OnInit {
     fecha_creacion: new FormControl(this.agendamientoTarget.fecha_creacion),
     fecha_alteracion: new FormControl(this.agendamientoTarget.fecha_alteracion),
     auto: new FormControl(this.agendamientoTarget.auto,[Validators.required]),
-    tipo_servicio: new FormControl(!Utils.isEmpty(this.agendamientoTarget)?this.agendamientoTarget.tipo_servicio.id:'',[Validators.required]),
+    tipo_servicio: new FormControl(!Utils.isEmpty(this.agendamientoTarget)?this.agendamientoTarget.tipo_servicio.id:null,[Validators.required]),
     usuario:new FormControl(this.agendamientoTarget.usuario,[Validators.required]),
     tipo: new FormControl(!Utils.isEmpty(this.agendamientoTarget)?this.agendamientoTarget.tipo:this.tiposAgendamiento[0].value,[Validators.required]),
-    fecha_objetivo: new FormControl(!Utils.isEmpty(this.agendamientoTarget)?formatDate(this.agendamientoTarget.fecha_objetivo,'yyyy-MM-dd','en'):'',[this.requireFechaObjetivo.bind(this),this.minDateFechaObjetivo.bind(this)]),
+    fecha_objetivo: new FormControl(!Utils.isEmpty(this.agendamientoTarget)?formatDate(this.agendamientoTarget.fecha_objetivo,'yyyy-MM-dd','en'):null,[this.requireFechaObjetivo.bind(this),this.minDateFechaObjetivo.bind(this)]),
     tipo_periodo: new FormControl(!Utils.isEmpty(this.agendamientoTarget)?this.agendamientoTarget.tipo_periodo:this.tiposPeriodo[0].value),
     periodo:new FormControl(this.agendamientoTarget.periodo,[this.requirePeriodo.bind(this),Validators.min(1)]),
     descripcion: new FormControl(this.agendamientoTarget.descripcion,[Validators.maxLength(150)]),
@@ -173,7 +167,6 @@ export class AgendamientoCardComponent implements OnInit {
       valueAgendamiento.tipo_servicio = this.getTipoServicio(valueAgendamiento.tipo_servicio);
 
       if( valueAgendamiento.fecha_objetivo){
-        console.log(valueAgendamiento.fecha_objetivo);
         valueAgendamiento.fecha_objetivo = Utils.getDate(valueAgendamiento.fecha_objetivo);
       }
 
@@ -249,8 +242,9 @@ export class AgendamientoCardComponent implements OnInit {
 
 
 
+
   minDateFechaObjetivo(control: AbstractControl){
-    let dateRef = Utils.isEmpty(this.agendamientoTarget)?(new Date(control.value) <= new Date()):false;
+    let dateRef = Utils.isEmpty(this.agendamientoTarget)?(Utils.getDate(control.value).getTime() <= Utils.getDate().getTime()):false;
       if(control.value && dateRef){
         return {'minDate':true};
       }else{

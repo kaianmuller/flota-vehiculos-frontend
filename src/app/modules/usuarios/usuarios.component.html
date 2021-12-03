@@ -3,7 +3,7 @@
         <label>Lista de usuarios</label>
     </div>
     <div class="panel-middle">
-        <button class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
+        <button *ngIf="isAdmin()" class="new-button" pButton icon="fas fa-plus" (click)="dispForm = true;resetTarget()"></button>
         <div class="search">
             <app-search-filter [config]="searchConfig" (query)="setQueryItems($event)"></app-search-filter>
         </div>
@@ -17,7 +17,7 @@
                 <th>Descripcion</th>
                 <th>Tipo</th>
                 <th>Más info.</th>
-                <th><i class="fas fa-wrench"></i> Opciones</th>
+                <th *ngIf="isAdmin()"><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -27,10 +27,10 @@
                 <td><p>{{item.descripcion}}</p></td>
                 <td>{{item.tipo_usuario}}</td>
                 <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>
-                <td>
+                <td *ngIf="isAdmin()">
                 <div class="opciones">
                     <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem(item)" ></button>
-                    <button class="del-button" pButton icon="fas fa-trash-alt" (click)="deleteItem(item.id)"></button>
+                    <button class="del-button" pButton icon="fas fa-trash-alt" (click)="confirm('delete','login',item)"></button>
                 </div>
                 </td>
             </tr>
@@ -47,12 +47,11 @@
 
 
 <p-dialog header="Informacion adicional" [(visible)]="dispInfo" [modal]="true">
-    <div class="panel-info">
-        <label><b>Fecha Alteracion:</b> {{itemTarget.fecha_alteracion | date:'dd/MM/YY'}}</label>
-        <label><b>Fecha creacion:</b> {{itemTarget.fecha_creacion | date:'dd/MM/YY'}}</label>
-</div>
+   <app-more-info-card *ngIf="dispInfo" [showItems]="['fecha_alteracion','fecha_creacion']" [item]="itemTarget"></app-more-info-card>
 </p-dialog>
 
 <p-dialog [header]="!isEmpty(itemTarget)?'Editar Usuario':'Nuevo Usuario'" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
     <app-usuario-card *ngIf="dispForm" [usuarioTarget]="itemTarget" (sendUsuario)="sendItem($event)"></app-usuario-card>
 </p-dialog>
+
+<p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle"></p-confirmDialog>

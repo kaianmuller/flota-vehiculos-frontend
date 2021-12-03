@@ -1,5 +1,4 @@
 .panel{
-    width: 450px;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -11,14 +10,23 @@
     flex-direction: row;
 }
 
+.panel-estado{
+    margin: 5px;
+    margin-top: 10px;
+    padding: 3px;
+    background-color: aliceblue;
+    border-radius: 3px;
+}
+
 .p-field{
     width: 100%;
     margin: 5px;
+    margin-top: 10px;
 }
 
 #descripcion{
     width: 98%;
-    height: 50px;
+    height: 60px;
     font-size: small;
     resize: none;
 }
@@ -49,4 +57,45 @@ button{
     margin-top: 10px;
     width: 100px;
     height: 50px; 
+}
+
+
+
+.fecha-input{
+    width: 252px;
+    height: 40px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    text-align: center;
+    color:black;
+    font-size: 18px;
+}
+
+.km-input,.valor-input{
+    width: 252px;
+    height: 40px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    text-align: center;
+    color:black;
+    font-size: 18px;
+}
+
+
+.valor-input{
+    background-color: yellowgreen;
+    color:black;
+}
+
+select{
+    width: 223px;
+    height: 40px;
+    border: solid 1px gray;
+    outline: none;
+    border-radius: 3px;
+    font-size: 14px;
+    color:black;
+    text-align: center;
 }
