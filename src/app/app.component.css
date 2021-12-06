@@ -1,19 +1,26 @@
+
 .bar{
-    width: 100%;
-    height: 27px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    height: 3.5vh;
+    flex: 1;
     border-radius: 1px;
     background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.menu{
+    flex: 5;
+}
+
+.pages{
+    flex: 38;
 }
 
 
-
-label{
-    font-size: 10px;
-    font-family:  'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: bold;
+#title-bar{
+    font-size: 11px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 2;
     color: white;
     margin-left: 10px;
 }
@@ -21,7 +28,7 @@ label{
 
 #panel-login{
     position: fixed;
-    z-index: 10;
+    z-index:  10000;
 }
 
 
@@ -31,10 +38,27 @@ label{
     width: 122px;
     height: 26px;
     position: fixed;
-    top:94%;
-    left:91%
+    top:95%;
+    left:91%;
+    pointer-events: none;
 }
 
 img{
     height: 100%;
+}
+
+
+#titulo{
+    font-size: 22px;
+    margin:0px;
+    color: rgb(49, 49, 49);
+}
+
+#salir{
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: black;
+    margin: 0px;
+    margin-left: auto;
 }

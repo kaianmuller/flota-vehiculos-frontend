@@ -56,7 +56,4 @@ export class LoginCardComponent implements OnInit {
     }
 
 
-
-
-
   }

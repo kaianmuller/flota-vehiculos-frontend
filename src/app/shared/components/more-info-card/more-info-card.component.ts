@@ -27,7 +27,7 @@ export class MoreInfoCardComponent implements OnInit {
   pipeFields(){
     for(let key in this.item){
       if(this.showItems.includes(key)){
-        if(this.item[key]){
+        if(this.item[key] || (this.item[key] >= 0)){
           if(typeof this.item[key] != 'number' && !isNaN(new Date(this.item[key].toString()).getTime())){ // verifica si es una fecha en formato string
             this.itemInfo.push({key:key,name:Utils.toLabel(Utils.firstUpperCase(key)),value:formatDate(this.item[key],'dd-MM-yyyy','en')});
           }else{

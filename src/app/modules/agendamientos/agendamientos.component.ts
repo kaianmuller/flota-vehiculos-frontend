@@ -65,7 +65,6 @@ export class AgendamientosComponent implements OnInit {
     getItems(){
         this.agendamientoServ.getAll({join:['tipo_servicio','auto','usuario'],skip:this.first,take:this.rows,search:JSON.stringify(this.queryItems)}).then((result)=>{this.items = result;console.log(result)});
         this.agendamientoServ.getCount({join:['tipo_servicio','auto','usuario'],search:JSON.stringify(this.queryItems)}).then(result=>this.totalRecords = result);
-   
     }
 
     paginate(event:any) {

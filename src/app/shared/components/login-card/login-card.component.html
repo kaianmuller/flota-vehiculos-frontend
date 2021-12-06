@@ -1,4 +1,4 @@
-
+<div class="page">
         <div class="panel-in">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
@@ -8,5 +8,6 @@
                 <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
                 <input id="pass-input" type="password" [value]="login.contrasena" (blur)="login.contrasena = getValue($event)" (keyup.enter)="login.contrasena = getValue($event);entrar()" placeholder="Password">      
             </div>
-            <button pButton (click)="entrar()" label="Entrar"></button>
+            <button class="entrar" pButton (click)="entrar()" label="Entrar"></button>
         </div>
+</div>

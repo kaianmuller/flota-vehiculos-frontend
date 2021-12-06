@@ -16,6 +16,7 @@ constructor(private router:Router,private authServ:AuthService){}
 
 
   if(!this.authServ.isLogged()){
+      this.router.navigate(['/login']);
     return false;
   }
 

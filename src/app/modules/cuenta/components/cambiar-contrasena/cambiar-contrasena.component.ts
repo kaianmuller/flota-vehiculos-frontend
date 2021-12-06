@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
 import { UsuariosService } from 'src/app/core/services/usuarios/usuarios.service';
+import { ChangeUserPass } from 'src/app/shared/models/ChangeUserPass.model';
 
 @Component({
   selector: 'app-cambiar-contrasena',
@@ -53,11 +54,17 @@ export class CambiarContrasenaComponent implements OnInit {
     
       const value = this.formCC.value;
       delete value.rep_new_pass;
+
       value.login = this.authServ.userLogin;
       value.fecha_alteracion = new Date();
+
+      let changePass:ChangeUserPass = new ChangeUserPass();
     
+      Object.assign(changePass,value);
+
+
       if(this.formCC.valid && this.validRep()){
-        this.userServ.changePassword(value).then(
+        this.userServ.changePassword(changePass).then(
             (result)=>console.log("Contrasena cambiada con suceso!")
           ).catch(
             (error)=> console.log("No se pudo cambiar la contrasena!")

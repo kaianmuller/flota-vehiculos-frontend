@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { AutosService } from 'src/app/core/services/autos/autos.service';
 import { ServiciosService } from 'src/app/core/services/servicios/servicios.service';
 import { SystemMessagesService } from 'src/app/core/services/system-messages/system-messages.service';
+import { DisponibilidadAuto } from 'src/app/shared/enums/disponibilidad-auto.enum';
 import { EstadoServicio } from 'src/app/shared/enums/estado-servicio.enum';
 import { TipoUsuario } from 'src/app/shared/enums/tipo-usuario.enum';
 import { Servicio } from 'src/app/shared/models/Servicio.model';
@@ -47,10 +49,9 @@ export class ServiciosComponent implements OnInit {
 
     queryItems:{[key:string]:any} = {};
 
-
     finalizarFlag:boolean = false;
 
-    constructor(private servicioServ:ServiciosService,private authServ:AuthService,private confirmationService: ConfirmationService,private sysMsg:SystemMessagesService) {
+    constructor(private servicioServ:ServiciosService,private autoServ:AutosService,private authServ:AuthService,private confirmationService: ConfirmationService,private sysMsg:SystemMessagesService) {
      
     }
 
@@ -94,22 +95,57 @@ export class ServiciosComponent implements OnInit {
 
       if(item.id)
       {
-      this.servicioServ.editOne(item,item.id).then(result=>{console.log("item Editado!");this.dispForm = false;this.getItems()});
+      this.servicioServ.editOne(item,item.id).then((result:any)=>{
+        console.log("item Editado!");
+        this.updateAuto(result);
+        this.dispForm = false;
+        this.getItems();
+      });
       }else
       {
-      this.servicioServ.createOne(item).then(result=>{console.log("item Creado!");this.getItems()});
+      this.servicioServ.createOne(item).then((result:any)=>{
+        console.log("item Creado!");
+        this.updateAuto(result);
+        this.getItems();
+      });
       }
 
     }
 
     confirm(type:string,ref:string,item:any) {
       this.confirmationService.confirm({
-          message: this.sysMsg.getDialogMessages(type,"Servicio: "+item.auto.chapa+" > "+item.tipo_servicio.descripcion),
+          message: item.auto?this.sysMsg.getDialogMessages(type,"Servicio: "+item.auto.chapa+" > "+item.tipo_servicio.descripcion):'',
           accept: () => {
-            this.deleteItem(item.id);   
+            if(type == 'delete') this.deleteItem(item.id);
+            if(type == 'finalize' || type == 'cancel') this.sendItem(item);
+          },
+          reject:() =>{
+            this.dispForm = false;
+            this.getItems();
           }
+
       });
     }
+
+
+    updateAuto(item:any){
+      let auto = item.auto;
+
+      if(auto && item.estado != EstadoServicio.EN_PROCESO){
+          auto.disponibilidad = DisponibilidadAuto.DISPONIBLE;
+          auto.kilometraje= Number(item.km_final);
+          console.log(auto);
+          this.autoServ.editOne(auto,auto.id).then(()=>console.log("Auto actualizado!"));
+      }
+
+      if(auto && item.estado == EstadoServicio.EN_PROCESO){
+        auto.disponibilidad = DisponibilidadAuto.OCUPADO;
+        this.autoServ.editOne(auto,auto.id).then(()=>console.log("Auto actualizado!"));
+      }
+
+    }
+
+
 
     deleteItem(id:number){
       this.servicioServ.deleteOne(id).then(result=>{console.log("item Deletado!");this.getItems()});
@@ -129,8 +165,14 @@ export class ServiciosComponent implements OnInit {
     }
 
 
+    cancelarServicio(item:Servicio){
+      this.itemTarget = item;
+      this.finalizarFlag =false;
+      this.dispForm = true;
+    }
+
     isFinalizado(item:any){
-     return item.estado && item.estado != EstadoServicio.FINALIZADO;
+     return item.estado && (item.estado == EstadoServicio.FINALIZADO ||item.estado == EstadoServicio.CANCELADO);
     }
 
     isEmpty(servicio:Servicio){
@@ -147,12 +189,20 @@ export class ServiciosComponent implements OnInit {
 
 
     setStyleBackgroundEstado(estado:any){
-      return estado && estado == EstadoServicio.FINALIZADO?{'background-color':'lime','color':'white'}:{'background-color':'slategray','color':'white'}
+      if(estado && estado == EstadoServicio.FINALIZADO) return {'background-color':'lime','color':'white','font-weight':'bold'}
+      if(estado && estado == EstadoServicio.CANCELADO) return {'background-color':'red','color':'white','font-weight':'bold'}
+
+      return {'background-color':'slategray','color':'white'}
     }
 
 
     isAdmin(){
       return this.authServ.isAdmin();
+    }
+
+
+    convertWordEstado(word:string){
+      return Utils.toLabel(word).toUpperCase();
     }
 
 }

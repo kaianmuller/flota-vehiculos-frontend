@@ -1,4 +1,5 @@
 export enum EstadoServicio{
     EN_PROCESO = 'EN_PROCESO',
-    FINALIZADO = 'FINALIZADO'
+    FINALIZADO = 'FINALIZADO',
+    CANCELADO = 'CANCELADO'
 }

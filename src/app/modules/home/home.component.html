@@ -1,1 +1,22 @@
-<p>home works!</p>
+<div class="page">
+    <div class="title">
+        <label>Dashboard</label>
+    </div>
+
+    <div class="info">
+                <div class="static-info">
+                    <div  *ngFor="let item of gastosTotales" class="number-card">
+                        <label>{{formatN.format(item.value)+printType(item.type)}}</label>
+                        <div><label>{{item.name}}</label></div>
+                    </div>
+                </div>
+            
+
+                <div class="graph-info">
+                    <div *ngFor="let item of gastosMonth" class="card">
+                            <label>{{item.titulo}} {{item.titulo?'('+printType(item.type)+')':''}}</label>
+                            <div><p-chart type="line" [data]="item"></p-chart></div>
+                    </div>
+                </div>
+    </div>
+</div>

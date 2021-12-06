@@ -38,14 +38,14 @@ async verifyTokenLogin(token:string){
       localStorage.setItem('expire',result.exp);
       this.userLogin = result.login;
       this.userRole = result.rol;
-      if(window.location.pathname == '/login') this.router.navigate(['/home']);
+      if(window.location.pathname == '/login' || window.location.pathname == '/') this.router.navigate(['/home']);
     }
     );
 }
 
 
 verifyToken(){
-  if(this.getToken()){
+  if(this.isLogged()){
     this.http.post(Utils.ip()+"/auth/check",{jwt:this.getToken()}).toPromise().then((result:any)=>{
     this.userLogin = result.login;
     this.userRole = result.rol;

@@ -40,6 +40,14 @@ export default class Utils{
 
 
 
+    static getMonthName(){
+      return [
+        'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
+            ];
+    }
+
+
+
     static adminOptions(option:string){
       return [
         'tipos_servicio',

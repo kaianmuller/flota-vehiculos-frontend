@@ -71,7 +71,8 @@ export class ServicioCardComponent implements OnInit {
     }
   
     ngOnInit(): void {
-
+      
+      
       this.buildForm();
     }
   
@@ -82,9 +83,9 @@ export class ServicioCardComponent implements OnInit {
         fecha_alteracion: new FormControl(this.servicioTarget.fecha_alteracion),
         descripcion: new FormControl(this.servicioTarget.descripcion,[Validators.maxLength(150)]),
         estado: new FormControl(!Utils.isEmpty(this.servicioTarget)?this.servicioTarget.estado:this.estados[0].value),
-        fecha_inicio:new FormControl(!Utils.isEmpty(this.servicioTarget)?formatDate(this.servicioTarget.fecha_inicio,'yyyy-MM-dd','en'):null,[this.minDateFecha.bind(this),this.requireEnProceso.bind(this),this.requireFinalizacion.bind(this)]),
-        fecha_fin:new FormControl(!Utils.isEmpty(this.servicioTarget) && this.servicioTarget.fecha_fin?formatDate(this.servicioTarget.fecha_fin,'yyyy-MM-dd','en'):null,[this.requireFinalizacion.bind(this),this.minDateFechaFin.bind(this)]),
-        km_inicial:new FormControl(this.servicioTarget.km_inicial,[this.requireEnProceso.bind(this),this.requireFinalizacion.bind(this)]),
+        fecha_inicio:new FormControl(!Utils.isEmpty(this.servicioTarget)?formatDate(this.servicioTarget.fecha_inicio,'yyyy-MM-dd','en'):null),
+        fecha_fin:new FormControl(!Utils.isEmpty(this.servicioTarget) && this.servicioTarget.fecha_fin?formatDate(this.servicioTarget.fecha_fin,'yyyy-MM-dd','en'):null),
+        km_inicial:new FormControl(this.servicioTarget.km_inicial),
         km_final:new FormControl(this.servicioTarget.km_final,[this.requireFinalizacion.bind(this),this.min.bind(this)]),
         valor_servicio:new FormControl(this.servicioTarget.valor_servicio,[this.requireFinalizacion.bind(this),Validators.min(0)]),
         tipo_servicio: new FormControl(!Utils.isEmpty(this.servicioTarget)?this.servicioTarget.tipo_servicio.id:null,[this.requireNuevoServicio.bind(this)]),
@@ -93,10 +94,13 @@ export class ServicioCardComponent implements OnInit {
       });
 
 
-
-      this.formServicio.get('km_inicial')?.valueChanges.subscribe(()=>{
-        this.formServicio.get('km_final')?.setValue(null);
+      this.formServicio.get('auto')?.valueChanges.subscribe((value: any)=>{
+        if(value) this.getKmFinalAuto(value.id).then((r:any)=>{
+                      if(r) this.formServicio.get('km_inicial')?.setValue(r.kilometraje);
+                  });
       });
+
+      
   
       this.resetValidate();
   
@@ -138,31 +142,36 @@ export class ServicioCardComponent implements OnInit {
       getTipoServicio(id:number){
         return this.tiposServicio.find((v:any)=>v.id==id);
       }
+
+
+    async  getKmFinalAuto(id:number){
+      return await this.autoServ.getOne(id);
+    }
     
     submit(event:Event){
       event.preventDefault();
-  
+
+
       if(this.formServicio.valid){
         let valueServicio = this.formServicio.value;
       
         valueServicio.tipo_servicio = this.getTipoServicio(valueServicio.tipo_servicio);
-  
-        if( valueServicio.fecha_inicio){
-          valueServicio.fecha_inicio = Utils.getDate(valueServicio.fecha_inicio);
-        }
 
-        if( valueServicio.fecha_fin){
-          valueServicio.fecha_fin= Utils.getDate(valueServicio.fecha_fin);
-        }
 
-        if(valueServicio.estado != EstadoServicio.FINALIZADO && !this.finalizar){
-          valueServicio.fecha_fin = null;
-          valueServicio.km_final = null;
-          valueServicio.valor_servicio = null;
-        }
-
-        if(this.finalizar){
+        if(this.servicioTarget.id && this.finalizar){
           valueServicio.estado = EstadoServicio.FINALIZADO;
+        }
+
+        if(this.servicioTarget.id && !this.finalizar){
+          valueServicio.estado = EstadoServicio.CANCELADO;
+        }
+
+        if(this.servicioTarget.id){
+          valueServicio.fecha_fin = Utils.getDate();
+        }
+
+        if(!this.servicioTarget.id){
+          valueServicio.fecha_inicio = Utils.getDate();
         }
 
         let servicio:Servicio = new Servicio();
@@ -197,10 +206,6 @@ export class ServicioCardComponent implements OnInit {
         tipo_servicio:'',
         auto: '',
         usuario: '',
-        estado: '',
-        fecha_inicio:'',
-        fecha_fin:'',
-        km_inicial:'',
         km_final:'',
         valor_servicio:'',
       };
@@ -258,18 +263,10 @@ export class ServicioCardComponent implements OnInit {
         return null;
       }
     }
-  
-
-    requireEnProceso(control: AbstractControl){
-      if(this.formServicio.get('estado')?.value == 'EN_PROCESO' && control.value == null){
-        return {'required':true};
-      }else{
-        return null;
-      }
-    }
 
     requireFinalizacion(control: AbstractControl){
-      if((this.finalizar || (this.servicioTarget.id && this.formServicio.get('estado')?.value==EstadoServicio.FINALIZADO)) && control.value == null){
+      let evalueValor = this.finalizar?!(this.formServicio.get('valor_servicio')?.value):false;
+      if(this.servicioTarget.id && evalueValor && control.value == null){
         return {'required':true};
       }else{
         return null;
@@ -277,22 +274,11 @@ export class ServicioCardComponent implements OnInit {
     }
 
     min(control: AbstractControl){
-      if((this.finalizar || (this.servicioTarget.id && this.formServicio.get('estado')?.value==EstadoServicio.FINALIZADO)) && control.value <= this.formServicio.get('km_inicial')?.value){
+      if(this.servicioTarget.id && control.value <= this.formServicio.get('km_inicial')?.value){
         return {'min':true};
       }else{
         return null;
       }
-    }
-
-
-    minDateFechaFin(control: AbstractControl){
-      let dateRef = Utils.getDate(control.value).getTime() <= Utils.getDate(this.formServicio.get('fecha_inicio')?.value).getTime();
-        if(control.value && dateRef){
-          return {'minDate':true};
-        }else{
-          return null;
-        }
-      
     }
   
 

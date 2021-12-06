@@ -1,6 +1,14 @@
-<div class="bar"><label *ngIf="isLogged()">FLOTA DE VEHICULOS</label></div>
-<app-main-menu *ngIf="isLogged()" ></app-main-menu>
-<router-outlet></router-outlet>
+<p-toast [baseZIndex]="10000" position="top-right"></p-toast>
+
+<div class="bar"><label id="title-bar" *ngIf="isLogged()">FLOTA DE VEHICULOS</label></div>
+
+<div class="menu">
+    <app-main-menu class="menu" *ngIf="isLogged()" ></app-main-menu>
+</div>
+
+<div class="pages">
+    <router-outlet></router-outlet>
+</div>
 
 
 <div id="water-mark">
@@ -8,11 +16,10 @@
 </div>
 
 
-
-
-
-<p-toast [baseZIndex]="1" position="top-right"></p-toast>
-
-<p-dialog id="panel-login" header="Autenticacion!" [(visible)]="dispLogin" [closeOnEscape]="false" [modal]="true" [closable]="false">
+<p-dialog id="panel-login" [(visible)]="dispLogin" [closeOnEscape]="false" [modal]="true" [closable]="false">
+    <ng-template pTemplate="header">
+        <label id="titulo">Autenticacion!</label>
+        <button id="salir" icon="fas fa-power-off" pButton (click)="logout()"></button>
+    </ng-template>
     <app-login-card *ngIf="dispLogin" (sendFailLoginError)="showLoginFailMessage($event)"></app-login-card>
 </p-dialog>

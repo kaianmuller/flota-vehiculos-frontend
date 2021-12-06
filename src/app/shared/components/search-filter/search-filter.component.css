@@ -18,9 +18,7 @@
 
 .table{
     position: fixed;
-    width: 380px;
     z-index: 100;
-    overflow: hidden;
 }
 
 

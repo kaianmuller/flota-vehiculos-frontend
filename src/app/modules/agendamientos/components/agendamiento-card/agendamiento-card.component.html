@@ -5,7 +5,7 @@
         <div class="panel-left">
             <div class="p-field">
                 <label>Auto</label>
-                <app-search-filter [idSearch]="'auto'" #auto [select]="true" [condition]="{disponibilidad:{value:'DISPONIBLE'}}" [selectHeader]="['chapa','modelo','disponibilidad']" (item)="setFormControlValue('auto',$event)" [selectService]="autoServ" [config]="autoSearchConfig" [validate]="formErrors.auto" [setItemTarget]="agendamientoTarget.auto"></app-search-filter>
+                <app-search-filter [idSearch]="'auto'" #auto [select]="true" [selectHeader]="['chapa','modelo','disponibilidad']" (item)="setFormControlValue('auto',$event)" [selectService]="autoServ" [config]="autoSearchConfig" [validate]="formErrors.auto" [setItemTarget]="agendamientoTarget.auto"></app-search-filter>
             </div>
 
             <div class="p-field">

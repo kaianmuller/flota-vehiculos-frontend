@@ -34,6 +34,8 @@ dialogMessages = Array<{[key:string]:any}>();
     this.dialogMessages = 
     [
       {delete:'Realmente deseas eliminar a '},
+      {finalize:'Realmente deseas finalizar a '},
+      {cancel:'Realmente deseas cancelar a '}
     ];
 
   }

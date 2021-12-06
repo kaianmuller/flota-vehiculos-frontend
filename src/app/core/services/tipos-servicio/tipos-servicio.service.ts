@@ -14,6 +14,6 @@ export class TiposServicioService extends ServiceGenericService<TipoServicio>{
    }
 
    async existTipoByDescripcion(desc:string){
-    return await this.httpClient.get<Boolean>(Utils.ip()+"/usuarios/existTipoByDescripcion/"+desc).toPromise();
+    return await this.httpClient.get<Boolean>(Utils.ip()+"/tipos_servicio/existTipoByDescripcion/"+desc).toPromise();
     }
 }

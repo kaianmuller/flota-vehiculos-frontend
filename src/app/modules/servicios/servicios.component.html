@@ -20,8 +20,8 @@
                 <th>Valor</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
-                <th>Finalizar</th>
                 <th>Más info.</th>
+                <th>Acciones</th>
                 <th *ngIf="isAdmin()"><i class="fas fa-wrench"></i> Opciones</th>
             </tr>
         </ng-template>
@@ -30,17 +30,21 @@
                 <td>{{item.tipo_servicio?item.tipo_servicio.descripcion:''}}</td>
                 <td>{{item.auto?item.auto.chapa:''}}</td>
                 <td>{{item.auto?item.auto.modelo:''}}</td>
-                <td><label class="estado" [style]="setStyleBackgroundEstado(item.estado)">{{item.estado}}</label></td>
+                <td><label class="estado" [style]="setStyleBackgroundEstado(item.estado)">{{convertWordEstado(item.estado)}}</label></td>
                 <td>{{item.usuario?item.usuario.login:''}}</td>
-                <td>{{item.valor_servicio}}</td>
+                <td>{{formatN.format(item.valor_servicio) + ' GS.'}}</td>
                 <td>{{item.fecha_inicio | date:'dd/MM/YY'}}</td>
                 <td>{{item.fecha_fin | date:'dd/MM/YY'}}</td>
-                <td><button *ngIf="isFinalizado(item)" class="action-button" pButton icon="fas fa-flag-checkered" (click)="finalizarServicio(item)"></button></td>
                 <td><button class="info-button" pButton icon="fas fa-info" (click)="showInfo(item)"></button></td>
                 <td *ngIf="isAdmin()">
+                    <div class="acciones">
+                        <button class="final-button" *ngIf="!isFinalizado(item)" pButton icon="fas fa-flag-checkered" (click)="finalizarServicio(item)"></button>
+                        <button class="cancel-button" *ngIf="!isFinalizado(item)" pButton icon="fas fa-ban" (click)="cancelarServicio(item)"></button>
+                    </div>
+                </td>
+                <td *ngIf="isAdmin()">
                     <div class="opciones">
-                        <button class="edit-button" pButton icon="fas fa-edit" (click)="editItem(item)" ></button>
-                        <button class="del-button" pButton icon="fas fa-trash-alt" (click)="confirm('delete','',item)"></button>
+                        <button *ngIf="isFinalizado(item)" class="del-button" pButton icon="fas fa-trash-alt" (click)="confirm('delete','',item)"></button>
                     </div>
                 </td>
             </tr>
@@ -60,8 +64,8 @@
 </p-dialog>
 
 
-<p-dialog [header]="!isEmpty(itemTarget)?finalizarFlag?'Finalizar Servicio':'Editar Servicio':'Nuevo Servicio'"  (onHide)="finalizarFlag = false;getItems()" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
-    <app-servicio-card *ngIf="dispForm" [servicioTarget]="itemTarget" [finalizar]="finalizarFlag" (sendServicio)="sendItem($event)"></app-servicio-card>
+<p-dialog [header]="!isEmpty(itemTarget)?finalizarFlag?'Finalizar Servicio':'Cancelar Servicio':'Nuevo Servicio'"  (onHide)="getItems()" [(visible)]="dispForm" [closeOnEscape]="false" [modal]="true">
+    <app-servicio-card *ngIf="dispForm" [servicioTarget]="itemTarget" [finalizar]="finalizarFlag" (sendServicio)="(!$event.id)?sendItem($event):finalizarFlag?confirm('finalize','',$event):confirm('cancel','',$event)"></app-servicio-card>
 </p-dialog>
 
 

@@ -1,0 +1,119 @@
+.page{
+    width: 100%;
+    height: 87vh;
+    padding-top: 20px;
+    padding-left: 10px;
+    background-color: rgb(70, 70, 70);
+    }
+    
+
+    .title{
+        margin-left: 5px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .title label{
+        font-size: 30px;
+        color: white;
+        margin-top: 10px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+.info{
+    display: flex;
+    flex-direction: row;
+}
+
+.static-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 35%;
+    height: 72vh;
+    border-radius: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+
+.number-card{
+    display: block;
+    width: 100%;
+    height: 150px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 2px;
+    background-color:  var(--primary-color);
+    margin-bottom: 10px;
+    border: solid black 1px;
+}
+
+.number-card label{
+    font-size: 40px;
+    color: white;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: 100;
+}
+
+.number-card div {
+    width: 100.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 6.3vh;
+    background-color: rgb(30, 30, 30);
+    border: solid black 1px;
+    border-radius: 2px;
+}
+
+.number-card div label{
+    font-size: 15px;
+    margin:auto;
+    padding: 6px;
+    color: white;
+}
+
+.graph-info{
+    width: 75%;
+    height: 72vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin:auto;
+}
+
+
+
+.card{
+    width: 95%;
+    height: 70vh;
+    border-radius: 5px;
+    border: solid black 1px;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 30px;
+}
+
+
+.card div{
+    width: 800px;
+    margin: auto;
+}
+
+
+
+
+label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

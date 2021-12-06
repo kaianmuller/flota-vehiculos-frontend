@@ -24,14 +24,19 @@ export class AppComponent {
   }
 
   isLogged():boolean{
-  this.dispLogin = (!this.authServ.isLogged() && window.location.pathname != '/login');
-   return this.authServ.isLogged();
+   this.dispLogin = (!this.authServ.isLogged() && window.location.pathname != '/login');
+   return window.location.pathname != '/login';
   }
-
-
 
 
   showLoginFailMessage(error:any){
     this.messageService.add(this.sysMsg.getSystemMessage(error.status));
   }
+
+
+  logout(){
+    this.authServ.logout();
+  }
+
+
 }

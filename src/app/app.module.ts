@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import {MenubarModule} from 'primeng/menubar';
 import { LoginModule } from './modules/login/login.module';
-import { HomeModule } from './modules/home/home.module';
 import { AutosModule } from './modules/autos/autos.module';
 import { ServiciosModule } from './modules/servicios/servicios.module';
 import { UsuariosModule } from './modules/usuarios/usuarios.module';
@@ -20,6 +16,8 @@ import { SharedModule } from './shared/shared.module';
 import { AgendamientosModule } from './modules/agendamientos/agendamientos.module';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { HomeModule } from './modules/home/home.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +30,6 @@ import { ToastModule } from 'primeng/toast';
     AppRoutingModule,
     RouterModule,
     LoginModule,
-    HomeModule,
     AutosModule,
     ServiciosModule,
     UsuariosModule,
@@ -42,6 +39,8 @@ import { ToastModule } from 'primeng/toast';
     AgendamientosModule,
     DialogModule,
     ToastModule,
+    ButtonModule,
+    HomeModule
   ],
   providers: [
     {

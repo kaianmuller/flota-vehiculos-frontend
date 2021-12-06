@@ -3,9 +3,9 @@
 
     <div class="panel-superior">
 
-        <div class="panel-left" [hidden]="finalizar">
+        <div class="panel-left">
 
-            <div class="p-field">
+            <div class="p-field" [hidden]="servicioTarget.id">
                 <label>Tipo de servicio</label>
                 <div class="field-out">
                 <select id="tipo_servicio" formControlName="tipo_servicio"  [pTooltip]="formErrors.tipo_servicio" tooltipEvent="focus" [style]="markField('tipo_servicio')">
@@ -15,21 +15,14 @@
             </div>
 
 
-            <div class="p-field">
+            <div class="p-field" [hidden]="servicioTarget.id">
                 <label>Auto</label>
                 <app-search-filter [idSearch]="'auto'" #auto [select]="true" [condition]="{disponibilidad:{value:'DISPONIBLE'}}" [selectHeader]="['chapa','modelo','disponibilidad']" (item)="setFormControlValue('auto',$event)" [selectService]="autoServ" [config]="autoSearchConfig" [validate]="formErrors.auto" [setItemTarget]="servicioTarget.auto"></app-search-filter>
             </div>
 
-            <div class="p-field">
+            <div class="p-field" [hidden]="servicioTarget.id">
                 <label>Usuario</label>
                     <app-search-filter [idSearch]="'usuario'" #usuario [select]="true" [selectHeader]="['login','nombre','tipo_usuario']" (item)="setFormControlValue('usuario',$event)" [selectService]="usuarioServ" [config]="usuarioSearchConfig" [validate]="formErrors.usuario" [setItemTarget]="servicioTarget.usuario"></app-search-filter>
-            </div>
-
-            <div class="p-field">
-                <label>Descripcion</label>
-                <div class="field-out">
-                <textarea id="descripcion" formControlName="descripcion"  pInputTextarea  (keyup.enter)="focusField('')"  [pTooltip]="formErrors.descripcion" tooltipEvent="focus" [style]="formServicio.get('estado')?.value == 'FINALIZADO'?{'height':'203px'}:{}"></textarea>   
-                </div>
             </div>
         
         </div>
@@ -38,43 +31,29 @@
 
 
            <div class="panel-estado">
-                <div class="p-field" *ngIf="servicioTarget.id && !finalizar">
-                    <label>Estado</label>
-                    <div class="field-out">
-                        <p-selectButton  formControlName="estado" [options]="estados"  optionLabel="name" optionValue="value" [multiple]="false" ></p-selectButton>
-                    </div>
-                </div>
-                <div id="init" *ngIf="!finalizar">
+                <div id="final">
                     <div class="p-field">
-                        <label>Fecha inicio</label>
-                         <div class="field-out">
-                             <input id="fecha_inicio" class="fecha-input" type="date" formControlName="fecha_inicio" [pTooltip]="formErrors.fecha_inicio" tooltipEvent="focus" [style]="markField('fecha_inicio')">
+                        <label>Descripcion</label>
+                        <div class="field-out">
+                        <textarea id="descripcion" formControlName="descripcion"  pInputTextarea  (keyup.enter)="focusField('')"  [pTooltip]="formErrors.descripcion" tooltipEvent="focus" [style]="!servicioTarget.id?{'height':'180px'}:{}"></textarea>   
                         </div>
                     </div>
-        
-                    <div class="p-field">
+
+                    <div class="p-field" *ngIf="servicioTarget.id">
                         <label>Kilometraje del auto (Inicial)</label>
                         <div class="field-out">
-                             <input id="km_inicial" class="km-input" type="number" formControlName="km_inicial" (keyup.enter)="focusField('km_inicial')" [pTooltip]="formErrors.km_inicial" tooltipEvent="focus"  [pTooltip]="formErrors.km_inicial" tooltipEvent="focus" [style]="markField('km_inicial')">   
+                             <input  class="km-input" type="number"  [value]="servicioTarget.km_inicial" disabled>   
                         </div>
                      </div>
-                </div>
-                <div id="final" *ngIf="formServicio.get('estado')?.value == 'FINALIZADO' || finalizar">
-                    <div class="p-field">
-                        <label>Fecha de finalizacion</label>
-                         <div class="field-out">
-                             <input id="fecha_fin" class="fecha-input" type="date" formControlName="fecha_fin" [pTooltip]="formErrors.fecha_fin" tooltipEvent="focus" [style]="markField('fecha_fin')">
-                        </div>
-                    </div>
-        
-                    <div class="p-field">
+
+                    <div class="p-field" *ngIf="servicioTarget.id">
                         <label>Kilometraje del auto (Final)</label>
                         <div class="field-out">
                              <input id="km_final" class="km-input" type="number" formControlName="km_final" (keyup.enter)="focusField('km_final')" [pTooltip]="formErrors.km_final" tooltipEvent="focus"  [pTooltip]="formErrors.km_final" tooltipEvent="focus" [style]="markField('km_final')">   
                         </div>
                      </div>
 
-                     <div class="p-field">
+                     <div class="p-field" *ngIf="servicioTarget.id && finalizar">
                         <label>Valor del servicio</label>
                         <div class="field-out">
                              <input id="valor_servicio" class="valor-input" type="number" formControlName="valor_servicio" (keyup.enter)="focusField('valor_servicio')" [pTooltip]="formErrors.valor_servicio" tooltipEvent="focus"  [pTooltip]="formErrors.valor_servicio" tooltipEvent="focus" [style]="markField('valor_servicio')">   
